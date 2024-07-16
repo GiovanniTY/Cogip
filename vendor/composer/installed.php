@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'becode/base',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '2a7c72759cae26960af1bf8f3134ee2e12c74fea',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'becode/base' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '2a7c72759cae26960af1bf8f3134ee2e12c74fea',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
