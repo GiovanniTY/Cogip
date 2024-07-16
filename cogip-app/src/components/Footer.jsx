@@ -3,23 +3,37 @@ import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
-    <footer>
+    <footer className='px-36'>
         <hr />
-        <div>
-        <h2>COGIP</h2>
-        <ul>
-            <li>Square des Martyrs, 6000 Charleroi</li>
-            <li>(123) 456-7890  (123) 456-7890</li>
+        <div className='my-8 flex justify-between items-center '>
+          <h2 className='text-center'>COGIP</h2>
+          <ul>
+              <li><i class="fa-solid fa-location-dot"></i>Square des Martyrs, 6000 Charleroi</li>
+              <li><i class="fa-solid fa-phone"></i>(123) 456-7890 <i class="fa-solid fa-print"></i>(123) 456-7890</li>
+          </ul>
+        </div>
+        <ul className='flex space-x-6'>
             <li>Social Media</li>
-        </ul>
+            <li><i class="fa-brands fa-square-facebook"></i></li>
+            <li><i class="fa-brands fa-twitter"></i></li>
+            <li><i class="fa-brands fa-linkedin-in"></i></li>
+            <li><i class="fa-brands fa-youtube"></i></li>
+            <li><i class="fa-brands fa-youtube"></i></li>
+            <li><i class="fa-brands fa-instagram"></i></li>
+            <li><i class="fa-brands fa-google-plus-g"></i></li>
+            <li><i class="fa-brands fa-pinterest"></i></li>
+            <li><i class="fa-solid fa-wifi fa-rotate-by"></i></li>
+          </ul>
         <hr />
-        <nav>
+        <div className='flex items-center'>        
+          <nav className='flex space-x-14 py-4'>
             <a href="">HOME</a>
             <a href="">INVOICES</a>
             <a href="">COMPANIES </a>
             <a href="">CONTACTS</a>
             <a href="">PRIVACY POLICY</a>
-        </nav>
+          </nav>
+          <p>Copyright © 2022 • COGIP Inc.</p>
         </div>
         
 
