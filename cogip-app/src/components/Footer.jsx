@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="px-36 font-Inter text-[#737373]">
+    <footer className=" font-Inter text-[#737373] m-20 p-14">
       <hr className="cogip-color"/>
       <div className="my-8 flex justify-between items-center ">
         <h2 className="text-center text-5xl font-Roboto font-black border-cogip-color border-4 p-2 text-[#434138]">COGIP</h2>
