@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <div>
-      <div className="flex items-center justify-between my-16">
+      <div className="flex items-center justif my-16">
         <p className="ml-[100px] text-left font-Inter font-black text-6xl">WORK BETTER <br/> IN YOUR <br/> COMPANY</p>
-        <img src={footerImage} alt="yellow polygon and phone" />
+        <img className="justify-self-end" src={footerImage} alt="yellow polygon and phone" />
       </div>
     </div>
   );
