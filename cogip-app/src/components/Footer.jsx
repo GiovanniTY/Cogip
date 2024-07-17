@@ -8,11 +8,11 @@ function Footer() {
         <div className='my-8 flex justify-between items-center '>
           <h2 className='text-center'>COGIP</h2>
           <ul>
-              <li><i class="fa-solid fa-location-dot"></i>Square des Martyrs, 6000 Charleroi</li>
+              <li><i className='' class="fa-solid fa-location-dot"></i>Square des Martyrs, 6000 Charleroi</li>
               <li><i class="fa-solid fa-phone"></i>(123) 456-7890 <i class="fa-solid fa-print"></i>(123) 456-7890</li>
           </ul>
         </div>
-        <ul className='flex space-x-6'>
+        <ul className='flex space-x-8'>
             <li>Social Media</li>
             <li><i class="fa-brands fa-square-facebook"></i></li>
             <li><i class="fa-brands fa-twitter"></i></li>
