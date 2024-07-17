@@ -1,9 +1,12 @@
 import React from "react";
+import Header_solgan from "./Header_slogan";
+import polygon from "../assets/rectangle-white.png";
 
 function Header() {
   return (
-    <header className="font-Roboto font-semibold">
-      <div className="border-[30px] border-yellow-300 flex justify-between bg-yellow-300 items-center">
+    <header className="font-Roboto font-semibold bg-cogip-color">
+      <div className="border-t-[70px] border-l-[100px] border-cogip-color">
+      <div className="flex justify-between items-center">
         <h1 className="text-4xl font-black">COGIP</h1>
         <nav className="flex space-x-14">
           <a className="border border-black p-3 hover:border-white" href="">
@@ -29,6 +32,10 @@ function Header() {
           </a>
         </div>
       </div>
+      <Header_solgan />
+      <img src={polygon} alt="white polygon figure" />
+      </div>
+      
     </header>
   );
 }
