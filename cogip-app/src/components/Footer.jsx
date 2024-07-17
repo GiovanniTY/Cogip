@@ -56,10 +56,10 @@ function Footer() {
       <hr />
       <div className="flex justify-between space-x-14 py-4">
         <nav className="space-x-16">
-          <a href="">HOME</a>
-          <a href="">INVOICES</a>
-          <a href="">COMPANIES </a>
-          <a href="">CONTACTS</a>
+          <a href="/">HOME</a>
+          <a href="Invoices">INVOICES</a>
+          <a href="Companies">COMPANIES </a>
+          <a href="/Contacts">CONTACTS</a>
           <a href="">PRIVACY POLICY</a>
         </nav>
         <p>Copyright © 2022 • COGIP Inc.</p>
