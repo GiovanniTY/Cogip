@@ -1,7 +1,7 @@
 <?php 
 
-namespace App\Core;
 
+namespace App\Core;
 class Controller 
 {
     /*
@@ -11,6 +11,6 @@ class Controller
     public function view($view, $data = [])
     {
         extract($data);
-        require_once(__ROOT__.'/Views/'.$view.'.php');
+        require_once(__ROOT__.'/Resources/views/'.$view.'.php');
     }
 }
