@@ -21,7 +21,7 @@ class Contacts {
 
         require_once '../config/dbconnect.php';
         
-        $stmt = $connect->prepare("SELECT cn.id, cn.name, co.name, cn.email, cn.phone, cn.created_at, cn.updated_at FROM contacts as cn LEFT JOIN companies as co ON cn.company_id = co.id");
+        $stmt = $connect->prepare("SELECT cn.id, cn.name, co.name, cn.email, cn.phone, DATE_FORMAT(cn.created_at, '%d/%m/%Y') as created, DATE_FORMAT(cn.updated_at, '%d/%m/%Y') as updated FROM contacts as cn LEFT JOIN companies as co ON cn.company_id = co.id");
         // $stmt->execute();
         if($stmt->execute()){
             echo 'it work';

@@ -20,7 +20,7 @@ class Invoices {
 
         require_once '../config/dbconnect.php';
         
-        $stmt = $connect->prepare("SELECT iv.id, iv.ref, co.name, iv.due_date ,iv.created_at, iv.updated_at FROM invoices as iv LEFT JOIN companies as co ON iv.company_id = co.id");
+        $stmt = $connect->prepare("SELECT iv.id, iv.ref, co.name, DATE_FORMAT(iv.due_date , '%d/%m/%Y') as due, DATE_FORMAT(iv.created_at , '%d/%m/%Y') as created, DATE_FORMAT(iv.updated_at , '%d/%m/%Y')as updated FROM invoices as iv LEFT JOIN companies as co ON iv.company_id = co.id");
         // $stmt->execute();
         if($stmt->execute()){
             echo 'it work';
@@ -33,7 +33,7 @@ class Invoices {
      
         require_once '../config/dbconnect.php';
         $date = date('Y-m-d H:i:s');
-        $due = date("Y-m-d", strtotime($due_date));
+        $due = date("Y-m-d", strtotime(str_replace('/', '-', $due_date)));
 
         $stmt = $connect->prepare("INSERT INTO invoices (ref, company_id, created_at, updated_at, due_date) VALUES (:ref, (SELECT id FROM companies WHERE name LIKE :company), :created_at, :updated_at, :due_date)");
         $stmt->bindParam(':ref', $ref, PDO::PARAM_STR);
@@ -53,7 +53,8 @@ class Invoices {
 
         require_once '../config/dbconnect.php';
         $date = date('Y-m-d H:i:s');
-        $due = date("Y-m-d", strtotime($due_date));
+        $due = date("Y-m-d", strtotime(str_replace('/', '-', $due_date)));
+        echo $due;
         $stmt = $connect->prepare(
             "UPDATE invoices 
             SET ref = :ref, 
