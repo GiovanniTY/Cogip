@@ -30,7 +30,7 @@ VALUES
     (   'F20220915-002', '2024-08-15', (SELECT id FROM companies WHERE name = 'Hooli'), '2020-06-25', '2020-06-25'),
     (   'F20220915-003', '2024-07-30', (SELECT id FROM companies WHERE name = 'Phoque Off'), '2022-10-11', '2022-10-11'),
     (   'F20220915-004', '2024-09-09', (SELECT id FROM companies WHERE name = 'Vanden Borre'), '2020-09-25', '2020-09-25'),
-    (   'F20220915-005', '2024-11-27', (SELECT id FROM companies WHERE name = 'Dreamland'), '2021-09-25', '2021-09-25')
+    (   'F20220915-005', '2024-11-27', (SELECT id FROM companies WHERE name = 'Dreamland'), '2021-09-25', '2021-09-25');
 
 
 

@@ -11,12 +11,8 @@ class Companies {
     private DateTime $update;
 
     function __construct($id){
-
         $this->id = $id;
-
-    }
-        
-    
+    }    
 
     function select(){
 

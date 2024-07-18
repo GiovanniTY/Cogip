@@ -1,9 +1,18 @@
 <?php
 
 namespace App\Controllers;
+use App\Core\Controller;
+require(__DIR__ . '/../config/dbconnect.php');
 
-class CompanyController
+class CompanyController extends Controller
 {
+    private $db;
+    public function __construct($db = $connect){
+        $this->db = $db;
+    }
+    public function getDB(){
+        return $this->db;
+    }
     public function index()
     {
         echo "CompanyController index method called\n";
@@ -19,4 +28,5 @@ class CompanyController
     }
 }
 
-?>
+$test = new CompanyController();
+$test->getDB();
