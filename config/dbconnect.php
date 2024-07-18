@@ -3,7 +3,7 @@
     $host = 'localhost';
     $dbname = 'cogips';
     $username = 'root';
-    $password = "";
+    $password = "root";
 
     // DB Connection 
     try{
