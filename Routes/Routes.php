@@ -3,9 +3,9 @@
 namespace App\Routes;
 
 use Bramus\Router\Router;
-use App\Controllers\HomeController;
 use App\Config\Database;
 use App\Controllers\CompaniesController;
+use App\Controllers\HomeController;
 
 $router = new Router();
 
