@@ -1,84 +1,80 @@
 <?php
-
+namespace App\Models;
 class Contacts {
     
     private int $id;
-    private string $name;
-    private string $company;
-    private int $companyId;
-    private string $email;
-    private string $phone;
-    private DateTime $updated;
-    private DateTime $created;
+    private ?string $name;
+    private ?int $companyId;
+    private ?string $email;
+    private ?string $phone;
+    private ?string $updated;
+    private ?string $created;
 
-    function __construct($id){
-
+    public function __construct(int $id, ?string $name, ?string $companyId, ?string $email, ?string $phone, ?string $updated, ?string $created){
         $this->id = $id;
-
+        $this->name = $name;
+        $this->companyId = $companyId;
+        $this->email = $email;
+        $this->phone = $phone;
+        $this->updated = $updated;
+        $this->created = $created;
     }
 
-    function select(){
-
-        require_once '../config/dbconnect.php';
-        
-        $stmt = $connect->prepare("SELECT cn.id, cn.name, co.name, cn.email, cn.phone, cn.created_at, cn.updated_at FROM contacts as cn LEFT JOIN companies as co ON cn.company_id = co.id");
-        // $stmt->execute();
-        if($stmt->execute()){
-            echo 'it work';
+    public static function loadData($contactsData){
+        $datas = [];
+        foreach($contactsData as $contact){
+            $datas[] = new self(
+                $contact['id'],
+                $contact['name'],
+                $contact['company_id'],
+                $contact['email'], 
+                $contact['phone'],
+                $contact['created_at'],
+                $contact['updated_at']
+            );
         }
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+        return $datas;
+    }
+    public static function dataBodyInsert(){
+        $bodyData = file_get_contents('php://input');
+        $bodyDatas = json_decode($bodyData, true);
+        $params = [
+            ':name' => self::securityInput($bodyDatas['name']),
+            ':company_id' => self::securityInput($bodyDatas['company_id']),
+            ':email'=> self::securityInput($bodyDatas['email']),
+            ':phone'=> self::securityInput($bodyDatas['phone']),
+            ':created_at'=> self::dates('Y-m-d h:i:s'),
+            ':updated_at'=> self::dates('Y-m-d h:i:s')
+        ];
+        return $params;
     }
 
-    function create($name, $company, $email, $phone){
-     
-        require_once '../config/dbconnect.php';
-        $date = date('Y-m-d H:i:s');
-        $stmt = $connect->prepare("INSERT INTO contacts (name, company_id, email, phone, created_at, updated_at) VALUES (:name, (SELECT id FROM companies WHERE name LIKE :company), :email, :phone, :created_at, :updated_at)");
-        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-        $stmt->bindParam(':company', $company, PDO::PARAM_STR);
-        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-        $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
-        $stmt->bindParam(':created_at', $date, PDO::PARAM_STR);
-        $stmt->bindParam(':updated_at', $date, PDO::PARAM_STR);
-        // $stmt->execute();
-        if($stmt->execute()){
-            echo 'it work';
+    public static function dataBodyUpdate($id){
+        $bodyData = file_get_contents('php://input');
+        $bodyDatas = json_decode($bodyData, true);
+        $paramsBody = [];
+        $paramsSet = [];
+        foreach($bodyDatas as $key => $value){
+            $paramsBody[":{$key}"] = self::securityInput($value);
         }
-
-    }
-
-    function update($id, $name, $company, $email, $phone){
-
-        require_once '../config/dbconnect.php';
-        $date = date('Y-m-d H:i:s');
-
-        $stmt = $connect->prepare("UPDATE contacts SET name = :name, company_id = (SELECT id FROM companies WHERE name LIKE :company), email = :email, phone = :phone, updated_at = :updated_at WHERE id = :id");
-        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-        $stmt->bindParam(':company', $company, PDO::PARAM_STR);
-        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-        $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
-        $stmt->bindParam(':updated_at', $date, PDO::PARAM_STR);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        // $stmt->execute();
-        if($stmt->execute()){
-            echo 'it work';
+        foreach($bodyDatas as $key => $value){
+            $paramsSet .= "{$key} = :{$key}, ";
         }
-
+        $paramsSet .= 'updated_at = :updated_at';
+        $paramsNoBody = [
+            ':id' => self::securityInput(intval($id)),
+            ':updated_at' => self::dates('Y-m-d h:i:s')
+        ];
+        $params = array_merge($paramsBody, $paramsNoBody);
+        return [
+            "paramsBody" => $params,
+            "paramsSet" => $paramsSet
+        ];
     }
-
-    function delete($id){
-
-        require_once '../config/dbconnect.php';
-
-        $stmt = $connect->prepare("DELETE FROM contacts WHERE id =:id");
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        // $stmt->execute();
-        if($stmt->execute()){
-            echo 'it work';
-        }
-
+    private static function securityInput($input){
+        return htmlspecialchars(stripslashes(trim($input)));
     }
-
-
+    private static function dates($format){
+        return date($format);
+    }
 }
