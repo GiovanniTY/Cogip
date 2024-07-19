@@ -8,6 +8,7 @@ use App\Config\Database;
 use App\Controllers\CompaniesController;
 use App\Controllers\ContactsController;
 
+
 $router = new Router();
 
 $router->mount('/companies', function () use ($router) {

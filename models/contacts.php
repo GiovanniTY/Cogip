@@ -10,7 +10,7 @@ class Contacts {
     private ?string $updated;
     private ?string $created;
 
-    public function __construct(int $id, ?string $name, ?string $companyId, ?string $email, ?string $phone, ?string $updated, ?string $created){
+    public function __construct(int $id, ?string $name, ?int $companyId, ?string $email, ?string $phone, ?string $updated, ?string $created){
         $this->id = $id;
         $this->name = $name;
         $this->companyId = $companyId;
@@ -23,6 +23,9 @@ class Contacts {
     public static function loadData($contactsData){
         $datas = [];
         foreach($contactsData as $contact){
+            // Log to verify the data received
+            error_log('Loading contact: ' . print_r($contact, true));
+
             $datas[] = new self(
                 $contact['id'],
                 $contact['name'],
@@ -52,6 +55,10 @@ class Contacts {
     public static function dataBodyUpdate($id){
         $bodyData = file_get_contents('php://input');
         $bodyDatas = json_decode($bodyData, true);
+
+        // Log to verify the request body data
+        error_log('Body data update: ' . print_r($bodyDatas, true));
+
         $paramsBody = [];
         $paramsSet = [];
         foreach($bodyDatas as $key => $value){
@@ -71,10 +78,27 @@ class Contacts {
             "paramsSet" => $paramsSet
         ];
     }
+    
+    // Method for input security
     private static function securityInput($input){
         return htmlspecialchars(stripslashes(trim($input)));
     }
+
+    // Method to get formatted dates
     private static function dates($format){
         return date($format);
     }
+    
+    // method to convert object to array for JSOn serialization
+    // public function toArray(): array{
+    //     return[
+    //         'id' => $this->id,
+    //         'name' => $this->name,
+    //         'email' => $this->email,
+    //         'phone' => $this->phone,
+    //         'created_at' => $this->created,
+    //         'updated_at'=> $this->updated
+    //     ];
+    // }
 }
+
