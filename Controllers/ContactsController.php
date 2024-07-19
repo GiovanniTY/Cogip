@@ -3,14 +3,14 @@
 namespace App\Controllers;
 
 use App\Models\Contacts;
-use App\Config\Database; 
+use App\Config\Database;
 use App\Core\Controller;
 
 class ContactsController {
     private $db;
     public function __construct(Database $db){
         // initialize DB object in constructor
-        $this->db = $db;
+        $this->db = $db->connect();
     }
 
     // function to select all datas of contacts in the DB
