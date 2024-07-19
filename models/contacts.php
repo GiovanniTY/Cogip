@@ -72,7 +72,7 @@ class Contacts {
         error_log('Body data update: ' . print_r($bodyDatas, true));
 
         $paramsBody = [];
-        $paramsSet = [];
+        $paramsSet = '';
         foreach($bodyDatas as $key => $value){
             $paramsBody[":{$key}"] = self::securityInput($value);
         }
