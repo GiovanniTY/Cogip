@@ -28,17 +28,24 @@ class CompaniesController {
     }
 
     public function createCompany() {
-        // Extract and sanitize data from request body
-        $params = Companies::dataBodyInsert(); 
-
-        $query = "INSERT INTO companies (name, type_id, country, tva, created_at, updated_at) 
+        // Estrai e sanifica i dati dal corpo della richiesta
+        $params = Companies::dataBodyInsert();
+    
+        // Query SQL per l'inserimento di una nuova azienda
+        $query = "INSERT INTO companies (name, type_id, country, tva, created_at, updated_at)
                   VALUES (:name, :type_id, :country, :tva, :created_at, :updated_at)";
+    
+        // Prepara lo statement SQL
         $stmt = $this->db->prepare($query);
-        // Execute SQL query with parameters
-        $stmt->execute($params); 
-        // Return success message
-        echo json_encode(["message" => "Company created successfully"]); 
+    
+        // Esegui la query con i parametri
+        $stmt->execute($params);
+    
+        // Ritorna un messaggio JSON indicante il successo dell'operazione
+        echo json_encode(["message" => "Company created successfully"]);
     }
+    
+    
 
     public function updateCompany($id) {
         $params = Companies::dataBodyUpdate($id); // Extract and sanitize data from request body for update

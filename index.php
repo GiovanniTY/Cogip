@@ -6,6 +6,3 @@ require_once __DIR__ . '/Helpers/request.php';
 require_once __DIR__ . '/Routes/Routes.php';
 require_once __DIR__ . '/Config/Database.php'; 
 
-
-
-

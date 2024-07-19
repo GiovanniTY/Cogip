@@ -3,11 +3,15 @@
 namespace App\Routes;
 
 use Bramus\Router\Router;
-use App\Controllers\HomeController;
 use App\Config\Database;
 use App\Controllers\CompaniesController;
+<<<<<<< HEAD
 use App\Controllers\InvoicesController;
 // use App\Models\Invoices;
+=======
+use App\Controllers\ContactsController;
+
+>>>>>>> dev
 
 $router = new Router();
 
@@ -75,6 +79,38 @@ $router->mount('/invoices', function () use ($router) {
     $router->delete('/delete/(\d+)', function ($id) {
         $db = new Database();
         return (new InvoicesController($db))->deleteInvoice($id);
+// CONTACTS
+
+$router->mount('/contacts', function () use ($router) {
+
+    // Route to get all contacts
+    $router->get('/', function () {
+        $db = new Database();
+        return (new ContactsController($db))->getAllContacts();
+    });
+
+    // Route to view details of a specific contact
+    $router->get('/view/(\d+)', function ($id) {
+        $db = new Database();
+        return (new ContactsController($db))->getContact($id);
+    });
+
+    // Route to create a new contact
+    $router->post('/add', function () {
+        $db = new Database();
+        return (new ContactsController($db))->createContact();
+    });
+
+    // Route to update an existing contact
+    $router->put('/edit/(\d+)', function ($id) {
+        $db = new Database();
+        return (new ContactsController($db))->updateContact($id);
+    });
+
+    // Route to delete a contact
+    $router->delete('/delete/(\d+)', function ($id) {
+        $db = new Database();
+        return (new ContactsController($db))->deleteContact($id);
     });
 
 });
