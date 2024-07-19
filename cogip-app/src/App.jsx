@@ -8,9 +8,9 @@ import Companies from './pages/Companies';
 import Contacts from './pages/Contacts';
 import Signup from './forms/Signup';
 import Login from './forms/Login';
-import Sidebar from './components/Sidebar';
 import DashboardHome from './components/DashboardHome';
-import DashboardSettings from './components/DashboardSettings';
+import Dashboardinvoices from './components/Dashboardinvoices';
+import DashboardLayout from './components/DashboardLayout'; 
 
 function App() {
   return (
@@ -39,7 +39,7 @@ function App() {
             <DashboardLayout>
               <Routes>
                 <Route path="/" element={<DashboardHome />} />
-                <Route path="/settings" element={<DashboardSettings />} />
+                <Route path="/settings" element={<Dashboardinvoices />} />
               </Routes>
             </DashboardLayout>
           }
@@ -48,14 +48,5 @@ function App() {
     </Router>
   );
 }
-
-const DashboardLayout = ({ children }) => (
-  <div className="flex h-screen">
-    <Sidebar />
-    <div className="flex flex-col flex-1">
-      <main className="flex-1 p-6 overflow-y-auto">{children}</main>
-    </div>
-  </div>
-);
 
 export default App;
