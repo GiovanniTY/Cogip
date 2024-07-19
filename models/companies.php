@@ -38,22 +38,23 @@ class Companies
         }
         return $datas;
     }
-
-    public static function dataBodyInsert() {
+    public static function dataBodyInsert()
+    {
         $bodydata = file_get_contents('php://input');
         $bodyDatas = json_decode($bodydata, true);
-
+    
         $params = [
             ':name' => self::securityInput($bodyDatas['name']),
             ':type_id' => self::securityInput(intval($bodyDatas['type_id'])),
             ':country' => self::securityInput($bodyDatas['country']),
             ':tva' => self::securityInput($bodyDatas['tva']),
-            ':created_at' => self::dates('Y-m-d h:i:s'),
-            ':updated_at' => self::dates('Y-m-d h:i:s')
+            ':created_at' => self::dates('Y-m-d H:i:s'), 
+            ':updated_at' => self::dates('Y-m-d H:i:s') 
         ];
-
+    
         return $params;
     }
+    
 
     public static function dataBodyUpdate($id) {
         $bodydata = file_get_contents('php://input');

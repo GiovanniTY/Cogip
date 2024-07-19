@@ -3,17 +3,18 @@
 namespace App\Controllers;
 
 use App\Models\Contacts;
-use App\Config\Database; 
+use App\Config\Database;
 use App\Core\Controller;
 
 class ContactsController {
     private $db;
+    
     public function __construct(Database $db){
         // initialize DB object in constructor
         $this->db = $db->connect();
     }
 
-    // function to select all datas of contacts in the DB
+    // Function to select all datas of contacts in the DB
     public function getAllContacts(){
         $query = "SELECT * FROM contacts";
         $stmt = $this->db->query($query);
@@ -26,19 +27,21 @@ class ContactsController {
         echo json_encode($contactsData);
     }
 
-    // function to create a new contact
+    // Function to create a new contact
     public function createContact(){
-         // Extract and sanitize data from request body
+        // Extract and sanitize data from request body
         $params = Contacts::dataBodyInsert();
+        $query = "INSERT INTO contacts (name, company_id, email, phone, created_at, updated_at) VALUES (:name, :company_id, :email, :phone, :created_at, :updated_at)";
         $query = "INSERT INTO contacts (name, company_id, email, phone, created_at, updated_at) VALUES (:name, :company_id, :email, :phone, :created_at, :updated_at)";
         $stmt = $this->db->prepare($query);
         // Execute SQL query with parameters
         $stmt->execute($params);
+
         // Return success message
         echo json_encode(["message" => "Contact is created successfully"]);
     }
 
-    // function to update a contact, using the id(primary key)
+    // Function to update a contact, using the id(primary key)
     public function updateContact($id){
         // Extract and sanitize data from request body for update
         $params = Contacts::dataBodyUpdate($id);
@@ -48,18 +51,21 @@ class ContactsController {
         // Execute SQL query with parameters
         $stmt->execute($params['paramsBody']);
 
+
         // Return success message
         echo json_encode(["message" => "Contact is updated successfully"]); 
     }
 
-    // function to delete a contact, using the id(primary key)
+    // Function to delete a contact, using the id(primary key)
     public function deleteContact($id){
         $query = "DELETE FROM contacts WHERE id =:id";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
 
+
         // Execute SQL delete query
         $stmt->execute();
+
 
         // Return success message
         echo json_encode(["message" => "Contact is deleted successfully"]); 
@@ -72,6 +78,7 @@ class ContactsController {
         $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
         $stmt->execute();
         $contactData = $stmt->fetch(\PDO::FETCH_ASSOC);
+
 
         if (!$contactData) {
             // Return error if contact isn't found
@@ -90,7 +97,6 @@ class ContactsController {
         );
         
         // Return contact data in json
-        echo json_encode($contact);
+        echo json_encode($contact->toArray());
     }
 }
-
