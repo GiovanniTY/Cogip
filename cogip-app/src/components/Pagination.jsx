@@ -18,7 +18,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
   }
 
   return (
-    <div>
+    <div className='self-center'>
       <button onClick={handlePrevious} disabled={currentPage === 1}>
         Previous
       </button>
