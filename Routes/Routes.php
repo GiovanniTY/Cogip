@@ -6,6 +6,8 @@ use Bramus\Router\Router;
 use App\Controllers\HomeController;
 use App\Config\Database;
 use App\Controllers\CompaniesController;
+use App\Controllers\InvoicesController;
+// use App\Models\Invoices;
 
 $router = new Router();
 
@@ -39,6 +41,40 @@ $router->mount('/companies', function () use ($router) {
     $router->delete('/delete/(\d+)', function ($id) {
         $db = new Database();
         return (new CompaniesController($db))->deleteCompany($id);
+    });
+
+});
+
+$router->mount('/invoices', function () use ($router) {
+
+    // Route to get all invoices
+    $router->get('/', function () {
+        $db = new Database();
+        return (new InvoicesController($db))->getAllInvoices();
+    });
+
+    // Route to view details of a specific invoice
+    $router->get('/view/(\d+)', function ($id) {
+        $db = new Database();
+        return (new InvoicesController($db))->getInvoice($id);
+    });
+
+    // Route to create a new company
+    $router->post('/add', function () {
+        $db = new Database();
+        return (new InvoicesController($db))->createInvoice();
+    });
+
+    // Route to update an existing invoice
+    $router->put('/edit/(\d+)', function ($id) {
+        $db = new Database();
+        return (new InvoicesController($db))->updateInvoice($id);
+    });
+
+    // Route to delete a company
+    $router->delete('/delete/(\d+)', function ($id) {
+        $db = new Database();
+        return (new InvoicesController($db))->deleteInvoice($id);
     });
 
 });
