@@ -30,7 +30,7 @@ class Invoices {
     }
 
     function create($ref, $company, $due_date){
-     
+
         require_once '../config/dbconnect.php';
         $date = date('Y-m-d H:i:s');
         $due = date("Y-m-d", strtotime($due_date));
