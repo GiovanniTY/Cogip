@@ -10,17 +10,15 @@ function Search({ onSearch }) {
   };
 
   return (
-    <div>
-      <div>
-        <input
-          className="border rounded"
+      <div className="self-end max-w-fit font-Inter font-light" >
+        <input 
+          className="border rounded-md p-2 text-[#636363]"
           type="text"
           placeholder="Search"
           value={query}
           onChange={handleInputChange}
         />
       </div>
-    </div>
   );
 }
 
