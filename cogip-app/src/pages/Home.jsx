@@ -1,6 +1,6 @@
 import React from "react";
 import footerImage from "../assets/Footer.png";
-
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
