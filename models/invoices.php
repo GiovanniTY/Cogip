@@ -6,15 +6,17 @@ class Invoices
 {
     public int $id;
     public ?string $reference;
+    public int $company_id;
     public ?string $companyName;
     public ?string $due_date;
     public ?string $created_at;
     public ?string $updated_at;
 
-    function __construct(int $id, ?string $reference, ?string $companyName, ?string $due_date, ?string $created_at, ?string $updated_at)
+    function __construct(int $id, ?string $reference, int $company_id ,?string $companyName, ?string $due_date, ?string $created_at, ?string $updated_at)
     {
         $this->id = $id;
         $this->reference = $reference;
+        $this->company_id = $company_id;
         $this->companyName = $companyName;
         $this->due_date = $due_date;
         $this->created_at = $created_at;
@@ -29,6 +31,7 @@ class Invoices
             $datas[] = new self(
                 $invoice['id'], 
                 $invoice['reference'],
+                $invoice['company_id'],
                 $invoice['companyName'],
                 $invoice['due_date'],
                 $invoice['created_at'],
@@ -45,7 +48,7 @@ class Invoices
 
         $params = [
             ':ref' => self::securityInput($bodyDatas['reference']),
-            ':companyName' => self::securityInput(intval($bodyDatas['company'])),
+            ':company_id' => self::securityInput($bodyDatas['company_id']),
             ':due_date' => self::dates("Y-m-d", strtotime(str_replace('/', '-', $bodyDatas['due_date']))),
             ':created_at' => self::dates('Y-m-d h:i:s', null),
             ':updated_at' => self::dates('Y-m-d h:i:s', null)
@@ -69,8 +72,8 @@ class Invoices
             }else{
                 $paramsBody[":{$key}"] = self::securityInput($value);
             }
-            
-        }
+        }        
+        
         foreach ($bodyDatas as $key => $value) {
             $paramsSet .= "{$key} = :{$key}, ";
         }

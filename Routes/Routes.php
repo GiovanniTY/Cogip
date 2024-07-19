@@ -5,13 +5,10 @@ namespace App\Routes;
 use Bramus\Router\Router;
 use App\Config\Database;
 use App\Controllers\CompaniesController;
-<<<<<<< HEAD
 use App\Controllers\InvoicesController;
 // use App\Models\Invoices;
-=======
 use App\Controllers\ContactsController;
 
->>>>>>> dev
 
 $router = new Router();
 
@@ -49,6 +46,7 @@ $router->mount('/companies', function () use ($router) {
 
 });
 
+//INVOICES
 $router->mount('/invoices', function () use ($router) {
 
     // Route to get all invoices
@@ -63,7 +61,7 @@ $router->mount('/invoices', function () use ($router) {
         return (new InvoicesController($db))->getInvoice($id);
     });
 
-    // Route to create a new company
+    // Route to create a new invoice
     $router->post('/add', function () {
         $db = new Database();
         return (new InvoicesController($db))->createInvoice();
@@ -79,6 +77,11 @@ $router->mount('/invoices', function () use ($router) {
     $router->delete('/delete/(\d+)', function ($id) {
         $db = new Database();
         return (new InvoicesController($db))->deleteInvoice($id);
+    });
+
+});
+
+
 // CONTACTS
 
 $router->mount('/contacts', function () use ($router) {
