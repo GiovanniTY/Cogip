@@ -21,7 +21,7 @@ ALTER TABLE `invoices` ADD `due_date` DATETIME NOT NULL;
 
 INSERT INTO `invoices` (`ref`, `due_date`, `company_id`, `created_at`, `updated_at`)
 VALUES
-    (   'F20220915-001', '2024-09-15', (SELECT id FROM companies WHERE name = 'Raviga'),         '2022-09-15', '2022-09-15'),
+    (   'F20220915-001', '2024-09-15', (SELECT id FROM companies WHERE name = 'Raviga'),'2022-09-15', '2022-09-15'),
     (   'F20221030-002', '2024-10-30', (SELECT id FROM companies WHERE name = 'Dunder Mifflin'), '2022-10-30', '2022-10-30'),
     (   'F20220915-003', '2024-10-01', (SELECT id FROM companies WHERE name = 'Pierre Cailloux'), '2020-07-25','2020-07-25'),
     (   'F20220915-004', '2024-09-30', (SELECT id FROM companies WHERE name = 'Pied Pipper'), '2022-12-05', '2022-12-05'),

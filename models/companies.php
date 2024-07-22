@@ -83,7 +83,7 @@ class Companies
             "paramsSet" => $paramsSet
         ];
     }
-
+    
     private static function securityInput($input) {
         return htmlspecialchars(stripslashes(trim($input)));
     }

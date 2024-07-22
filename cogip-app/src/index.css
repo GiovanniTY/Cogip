@@ -1,4 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300&family=Inter:wght@100..900&family=Roboto:wght@500;700;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300&family=Inter:wght@100..900&family=Roboto:wght@500;700;900&display=swap');
+
+.h2-underline::after {
+    content: '';
+    display: block;
+    height: 20px; 
+    width: 80%;
+    background-color: #F9DE4E;
+    position: absolute;
+    bottom: 0px;
+    left: 120px;
+    transform: translateX(0); 
+    z-index: -1;
+  }
+  
