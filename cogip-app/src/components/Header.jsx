@@ -13,7 +13,7 @@ function Header() {
         <div className="flex justify-between items-center">
           <h1 className="text-4xl font-black">COGIP</h1>
           <nav className="flex space-x-14">
-            <a className="border border-black p-3 hover:border-white" href="/">
+            <a className="hover:border border-white p-3" href="/">
               Home
             </a>
             <a className="hover:border border-white p-3" href="/Invoices">
