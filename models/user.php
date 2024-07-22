@@ -32,15 +32,16 @@
         public function signIn($database){
             try{
                 $query = "INSERT INTO `users`(`first_name`, `role_id`, `last_name`, `email`, `password`, `created_at`, `updated_at`) 
-                VALUES('{$this->firstName}',
-                        '{$this->roleId}',
-                        '{$this->lastName}',
-                        '{$this->email}',
-                        '{$this->hashPswd($this->password)}',
-                        NOW(),
-                        NOW()
-                )";
-                $newUserData = $database->query($query);
+                VALUES(?, ?, ?, ?, ?, NOW(), NOW())";
+                $stmt = $database->prepare($query);
+                $stmt->execute(
+                    [$this->firstName,
+                    $this->roleId,
+                    $this->lastName,
+                    $this->email,
+                    $this->password
+                ]);
+                $newUserData = $stmt->fetchAll();
                 echo createJson($newUserData);
             }
             catch(\Throwable $e){
@@ -59,14 +60,9 @@
             $bodyDatas = json_decode($bodyData, true);
 
             $params =[
-                'user' =>securityInput($bodyDatas['user']),
-                'password'=>securityInput($bodyDatas['password'])
+                'email' => securityInput($bodyDatas['email'] ?? ''),
+                'password'=> securityInput($bodyDatas['password'] ?? '')
             ];
             return $params;
-        }
-        
-        private function hashPswd($pwd){
-            $hash = password_hash($pwd, PASSWORD_DEFAULT);
-            return $hash;
         }
     }
