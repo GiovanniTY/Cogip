@@ -32,7 +32,6 @@ class ContactsController {
         // Extract and sanitize data from request body
         $params = Contacts::dataBodyInsert();
         $query = "INSERT INTO contacts (name, company_id, email, phone, created_at, updated_at) VALUES (:name, :company_id, :email, :phone, :created_at, :updated_at)";
-        $query = "INSERT INTO contacts (name, company_id, email, phone, created_at, updated_at) VALUES (:name, :company_id, :email, :phone, :created_at, :updated_at)";
         $stmt = $this->db->prepare($query);
         // Execute SQL query with parameters
         $stmt->execute($params);
