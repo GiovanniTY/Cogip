@@ -1,102 +1,52 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import Search from "../components/Search";
 import Pagination from '../components/Pagination';
 
-const contactsData = [
-  {
-    "name": "Peter Gregory",
-    "phone": "555-4567",
-    "mail": "peter.gregory@raviga.com",
-    "company": "Raviga",
-    "createdAt": "25/09/2020"
-  },
-  {
-    "name": "Cameron How",
-    "phone": "555-8765",
-    "mail": "cam.how@mutiny.net",
-    "company": "Mutiny",
-    "createdAt": "25/09/2020"
-  },
-  {
-    "name": "Gavin Belson",
-    "phone": "555-6354",
-    "mail": "gavin@hooli.com",
-    "company": "Hooli",
-    "createdAt": "25/09/2020"
-  },
-  {
-    "name": "Jian Yang",
-    "phone": "555-8765",
-    "mail": "jian.yan@phoque.off",
-    "company": "Phoque Off",
-    "createdAt": "25/09/2020"
-  },
-  {
-    "name": "Bertram Gilfoyle",
-    "phone": "555-5434",
-    "mail": "gilfoy@piedpiper.com",
-    "company": "Pied Piper",
-    "createdAt": "25/09/2020"
-  },
-  {
-    "name": "Peter Gregory",
-    "phone": "555-4567",
-    "mail": "peter.gregory@raviga.com",
-    "company": "Raviga",
-    "createdAt": "25/09/2020"
-  },
-  {
-    "name": "Cameron How",
-    "phone": "555-8765",
-    "mail": "cam.how@mutiny.net",
-    "company": "Mutiny",
-    "createdAt": "25/09/2020"
-  },
-  {
-    "name": "Gavin Belson",
-    "phone": "555-6354",
-    "mail": "gavin@hooli.com",
-    "company": "Hooli",
-    "createdAt": "25/09/2020"
-  },
-  {
-    "name": "Jian Yang",
-    "phone": "555-8765",
-    "mail": "jian.yan@phoque.off",
-    "company": "Phoque Off",
-    "createdAt": "25/09/2020"
-  },
-  {
-    "name": "Bertram Gilfoyle",
-    "phone": "555-5434",
-    "mail": "gilfoy@piedpiper.com",
-    "company": "Pied Piper",
-    "createdAt": "25/09/2020"
-  }
-];
 function Contacts() {
-    const [searchResults, setSearchResults] = useState(contactsData);
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 4;
+  const [contacts, setContacts] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
 
-    const handleSearch = (query) => {
-        const results = contactsData.filter(
-        (contact) =>
-            contact.name.toLowerCase().includes(query.toLowerCase()) ||
-            contact.mail.toLowerCase().includes(query.toLowerCase()) ||
-            contact.company.toLowerCase().includes(query.toLowerCase())
-        );
-        setSearchResults(results);
-        setCurrentPage(1); 
-    };
+  useEffect(() => {
+      fetch('http://localhost/cogip/contacts/')
+          .then(response => response.json())
+          .then(data => {
+              console.log('Fetched data:', data);
+              const formattedData = data.map(contact => ({
+                  id: contact.id,
+                  name: contact.name,
+                  phone: contact.phone,
+                  mail: contact.email,
+                  company: contact.company_id,
+                  createdAt: contact.created_at
+              }));
+              setContacts(formattedData);
+              setSearchResults(formattedData);
+          })
+          .catch(error => console.error('Error fetching data:', error));
+  }, []);
 
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-    };
+  const handleSearch = (query) => {
+      console.log('Search query:', query);
+      const results = contacts.filter(
+          (contact) =>
+              contact.name.toLowerCase().includes(query.toLowerCase()) ||
+              contact.mail.toLowerCase().includes(query.toLowerCase()) ||
+              contact.company.toString().toLowerCase().includes(query.toLowerCase())
+      );
+      console.log('Search results:', results);
+      setSearchResults(results);
+      setCurrentPage(1); 
+  };
 
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentItems = searchResults.slice(startIndex, startIndex + itemsPerPage);
-    const totalPages = Math.ceil(searchResults.length / itemsPerPage);
+  const handlePageChange = (page) => {
+      setCurrentPage(page);
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = searchResults.slice(startIndex, startIndex + itemsPerPage);
+  const totalPages = Math.ceil(searchResults.length / itemsPerPage);
 
   return (
     <>
@@ -113,8 +63,8 @@ function Contacts() {
           </tr>
         </thead>
         <tbody>
-          {currentItems.map((contact, index) => (
-            <tr key={index}>
+          {currentItems.map((contact) => (
+            <tr key={contact.id}>
               <td>{contact.name}</td>
               <td>{contact.phone}</td>
               <td>{contact.mail}</td>
@@ -132,4 +82,5 @@ function Contacts() {
     </>
   );
 }
+
 export default Contacts;
