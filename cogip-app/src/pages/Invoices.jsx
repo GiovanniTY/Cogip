@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Search from "../components/Search";
 import Pagination from "../components/Pagination";
+import '../index.css';
 
 const invoicesData = [
   {
@@ -65,7 +66,7 @@ const Invoices = () => {
   return (
     <>
       <div className=" flex flex-col mx-36 relative">
-          <h2 className="font-Inter font-black text-5xl max-w-fit relativev after:content-[''] after:bg-cogip-color after:mt-10 after:ml-10">
+          <h2 className="font-Inter font-black text-5xl max-w-fit relative h2-underline">
             All invoices
           </h2>
         <Search onSearch={handleSearch} />
