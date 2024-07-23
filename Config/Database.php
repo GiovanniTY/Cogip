@@ -9,7 +9,7 @@ class Database{
     private $host = 'localhost';
     private $username = 'root';
     // Password don't need for xampp, need to wamp pswd: root
-    private $password = 'root';
+    private $password = '';
     private $dbname = 'cogips';
     private $conn;
 
