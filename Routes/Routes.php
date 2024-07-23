@@ -8,6 +8,8 @@ use App\Controllers\CompaniesController;
 use App\Controllers\InvoicesController;
 use App\Controllers\ContactsController;
 use App\Controllers\UsersController;
+use App\Controllers\LoginController;
+
 
 
 $router = new Router();
@@ -146,5 +148,17 @@ $router->mount('/users', function () use ($router) {
     });
 
 });
+
+// LOGIN
+    $router->post('/login', function(){
+        $db = new Database();
+        return (new LoginController($db))->login();
+    });
+
+// LOGOUT
+    $router->post('/logout/{key}', function($key){
+        $db = new Database();
+        return (new LoginController($db))->logout($key);
+    });
 
 $router->run();
