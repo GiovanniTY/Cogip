@@ -20,18 +20,17 @@ class InvoicesController
     public function getAllInvoices() 
     {
         try {
-            // Query per ottenere tutte le fatture con le informazioni dell'azienda
-            $query = "
-                SELECT  invoices.id, 
+            // Query to get all invoices from database
+            $query = "SELECT  invoices.id, 
                         invoices.ref    AS reference,
                         invoices.company_id, 
                         companies.name  AS companyName, 
                         invoices.due_date, 
-                        invoices.created_at, 
-                        invoices.updated_at 
-                FROM    invoices 
-                LEFT JOIN companies ON invoices.company_id = companies.id
-            ";
+                        DATE_FORMAT(invoices.created_at, '%d/%m/%Y') as created_at, 
+                        DATE_FORMAT(invoices.updated_at, '%d/%m/%Y') as updated_at 
+                FROM invoices LEFT JOIN companies 
+                                ON invoices.company_id = companies.id 
+                ORDER BY invoices.created_at DESC";
 
             $stmt = $this->db->query($query);
 
