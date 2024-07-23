@@ -105,35 +105,6 @@ class Invoices
         
     }
 
-    // private static function dates($format, $date) {
-    //     return date($format, $date);
-    // }
-
-    //problem on due date update
-    // function update($id, $ref, $company, $due_date){
-
-    //     require_once '../config/dbconnect.php';
-    //     $date = date('Y-m-d H:i:s');
-    //     $due = date("Y-m-d", strtotime(str_replace('/', '-', $due_date)));
-    //     echo $due;
-    //     $stmt = $connect->prepare(
-    //         "UPDATE invoices 
-    //         SET ref = :ref, 
-    //             company_id = (SELECT id FROM companies WHERE name LIKE :company), 
-    //             updated_at = :updated_at, 
-    //             due_date = :due_date 
-    //         WHERE id = :id");
-    //     $stmt->bindParam(':ref', $ref, PDO::PARAM_STR);
-    //     $stmt->bindParam(':company', $company, PDO::PARAM_STR);
-    //     $stmt->bindParam(':updated_at', $date, PDO::PARAM_STR);
-    //     $stmt->bindParam(':due_date', $due, PDO::PARAM_STR);
-    //     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    //     // $stmt->execute();
-    //     if($stmt->execute()){
-    //         echo 'it work';
-    //     }
-
-    // }
 
 }
 header("Access-Control-Allow-Origin: http://localhost:5173");

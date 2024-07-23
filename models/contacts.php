@@ -7,16 +7,18 @@ class Contacts {
     private int $id;
     private ?string $name;
     private ?int $companyId;
+    private ?string $company;
     private ?string $email;
     private ?string $phone;
     private ?string $updated;
     private ?string $created;
 
     // Constructor to initialize properties
-    public function __construct(int $id, ?string $name, ?int $companyId, ?string $email, ?string $phone, ?string $created, ?string $updated){
+    public function __construct(int $id, ?string $name, ?int $companyId, ?string $company, ?string $email, ?string $phone, ?string $created, ?string $updated){
         $this->id = $id;
         $this->name = $name;
         $this->companyId = $companyId;
+        $this->company = $company;
         $this->email = $email;
         $this->phone = $phone;
         $this->created = $created;
@@ -35,6 +37,7 @@ class Contacts {
                 $contact['id'],
                 $contact['name'],
                 $contact['company_id'],
+                $contact['company'],
                 $contact['email'], 
                 $contact['phone'],
                 $contact['created_at'],

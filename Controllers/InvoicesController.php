@@ -19,26 +19,55 @@ class InvoicesController
 
     public function getAllInvoices() 
     {
-        //
-        $query = "
-        SELECT  invoices.id, 
-                invoices.ref    as reference,
-                invoices.company_id, 
-                companies.name  as companyName, 
-                invoices.due_date, 
-                invoices.created_at, 
-                invoices.updated_at 
-        FROM    invoices 
-            LEFT JOIN   companies 
-            ON          invoices.company_id = companies.id";
-        $stmt = $this->db->query($query);
-        $invoicesData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        // Load company data using model
+        try {
+            // Query to get all invoices from database
+            $query = "SELECT  invoices.id, 
+                        invoices.ref    AS reference,
+                        invoices.company_id, 
+                        companies.name  AS companyName, 
+                        invoices.due_date, 
+                        DATE_FORMAT(invoices.created_at, '%d/%m/%Y') as created_at, 
+                        DATE_FORMAT(invoices.updated_at, '%d/%m/%Y') as updated_at 
+                FROM invoices LEFT JOIN companies 
+                                ON invoices.company_id = companies.id 
+                ORDER BY invoices.created_at DESC";
 
+            $stmt = $this->db->query($query);
 
-        $invoices = Invoices::loadData($invoicesData); 
-        // Return data encoded in JSON
-        echo json_encode($invoices); 
+            if ($stmt === false) {
+                throw new \Exception('Query execution failed');
+            }
+
+            $invoicesData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+            if ($invoicesData === false) {
+                throw new \Exception('Failed to fetch invoices data');
+            }
+
+            // Load invoice data using model
+            $invoices = Invoices::loadData($invoicesData);
+
+            // Return data encoded in JSON
+            $response = [
+                "status" => 200,
+                "message" => 'OK',
+                "data" => $invoices
+            ];
+
+        } catch (\Exception $e) {
+            // Handle exceptions and prepare error response
+            $response = [
+                "status" => 500,
+                "message" => "ERROR INTERNAL SERVER: " . $e->getMessage(),
+                "data" => null
+            ];
+        }
+
+        // Set the response header to indicate JSON content
+        header('Content-Type: application/json');
+        
+        // Send the JSON response
+        echo json_encode($response);
     }
 
     public function createInvoice() 

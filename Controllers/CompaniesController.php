@@ -16,34 +16,71 @@ class CompaniesController {
     }
 
     public function getAllCompanies() {
-        $query = "SELECT * FROM companies";
-        $stmt = $this->db->query($query);
-        $companiesData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        // Load company data using model
 
+        try{
+            $query = "SELECT companies.id, companies.name, companies.type_id, companies.country, companies.tva, DATE_FORMAT(companies.created_at, '%d/%m/%Y') as created_at, DATE_FORMAT(companies.updated_at, '%d/%m/%Y') as updated_at, types.name as type FROM companies LEFT JOIN types ON companies.type_id = types.id ORDER BY companies.created_at DESC";
+            $stmt = $this->db->query($query);
+            $companiesData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-        $companies = Companies::loadData($companiesData); 
-        // Return data encoded in JSON
-        echo json_encode($companies); 
+            // Load company data using model
+            $companies = Companies::loadData($companiesData);
+
+            // Return data encoded in JSON with status
+            $response = [
+                'status' => 200,
+                'message' => 'OK',
+                'data' => $companies
+            ];
+        } catch (\Exception $e) {
+            // Handle exceptions and return an error status
+            $response = [
+                'status' => 500,
+                'message' => 'Internal Server Error: ' . $e->getMessage(),
+                'data' => []
+            ];
+        }
+
+        // Set the response header to indicate JSON content
+        header('Content-Type: application/json');
+        echo json_encode($response);
     }
 
+
+
     public function createCompany() {
-        // Estrai e sanifica i dati dal corpo della richiesta
+        try {
+        // Extract and sanitize data from the request body
         $params = Companies::dataBodyInsert();
     
-        // Query SQL per l'inserimento di una nuova azienda
+        // SQL query for entering a new company
         $query = "INSERT INTO companies (name, type_id, country, tva, created_at, updated_at)
                   VALUES (:name, :type_id, :country, :tva, :created_at, :updated_at)";
     
-        // Prepara lo statement SQL
+        // Prepare stmt 
         $stmt = $this->db->prepare($query);
     
-        // Esegui la query con i parametri
+        // execute the query 
         $stmt->execute($params);
+
+        
     
-        // Ritorna un messaggio JSON indicante il successo dell'operazione
-        echo json_encode(["message" => "Company created successfully"]);
+        $response = [
+            'status' => 202,
+            'message' => 'OK',
+            'params' => $params
+        ];
+
+        echo createJson($response);
+    } catch (\Throwable $th) {
+        $response = [
+            'status' => 500,
+            'message' => 'Bad Request',
+        ];
+
+        echo createJson($response);
     }
+}
+
     
     
 
@@ -82,6 +119,7 @@ class CompaniesController {
             $companyData['id'],
             $companyData['name'],
             $companyData['type_id'],
+            $companyData['type'],
             $companyData['country'],
             $companyData['tva'],
             $companyData['created_at'],

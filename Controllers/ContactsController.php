@@ -16,7 +16,7 @@ class ContactsController {
 
     // Function to select all datas of contacts in the DB
     public function getAllContacts(){
-        $query = "SELECT * FROM contacts";
+        $query = "SELECT contacts.id, contacts.name, contacts.company_id, contacts.email, contacts.phone, DATE_FORMAT(contacts.created_at, '%d/%m/%Y') as created_at, DATE_FORMAT(contacts.updated_at, '%d/%m/%Y') as updated_at, companies.name as company FROM contacts LEFT JOIN companies ON contacts.company_id = companies.id ORDER BY contacts.created_at DESC";
         $stmt = $this->db->query($query);
         $contactsData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -31,7 +31,6 @@ class ContactsController {
     public function createContact(){
         // Extract and sanitize data from request body
         $params = Contacts::dataBodyInsert();
-        $query = "INSERT INTO contacts (name, company_id, email, phone, created_at, updated_at) VALUES (:name, :company_id, :email, :phone, :created_at, :updated_at)";
         $query = "INSERT INTO contacts (name, company_id, email, phone, created_at, updated_at) VALUES (:name, :company_id, :email, :phone, :created_at, :updated_at)";
         $stmt = $this->db->prepare($query);
         // Execute SQL query with parameters
@@ -90,6 +89,7 @@ class ContactsController {
             $contactData['id'],
             $contactData['name'],
             $contactData['company_id'],
+            $contactData['company'],
             $contactData['email'],
             $contactData['phone'], 
             $contactData['created_at'],
