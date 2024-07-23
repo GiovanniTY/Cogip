@@ -2,7 +2,7 @@
     namespace App\Controllers;
 
     use App\Config\Database;
-    use App\Models\User;
+    use App\Models\Login;
 
     class LoginController{
         private $db;
@@ -13,7 +13,7 @@
         // method to login
         public function login(){
             try{    
-                $dataBody = User::dataBodyInsert();
+                $dataBody = Login::dataBodyInsert();
                 $params =[
                     'email' => $dataBody['email']
                 ];

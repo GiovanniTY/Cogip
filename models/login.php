@@ -1,7 +1,7 @@
 <?php 
     namespace App\Models;
 
-    class User{
+    class Login{
         private string $firstName;
         private string $lastName;
         private string $email;
