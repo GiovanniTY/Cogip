@@ -82,25 +82,83 @@ class CompaniesController {
 
     
     
+public function updateCompany($id) {
+    try {
+        // Extract and sanitize data from request body for update
+        $params = Companies::dataBodyUpdate($id);
 
-    public function updateCompany($id) {
-        $params = Companies::dataBodyUpdate($id); // Extract and sanitize data from request body for update
-
+        // Prepare SQL query for update
         $query = "UPDATE companies SET {$params['paramsSet']} WHERE id = :id";
         $stmt = $this->db->prepare($query);
-        $stmt->execute($params['paramsBody']); // Execute SQL query with parameters
 
-        echo json_encode(["message" => "Company updated successfully"]); // Return success message
+        // Bind the ID parameter
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+
+        // Execute SQL query with parameters
+        $stmt->execute($params['paramsBody']);
+
+        // Check if any row was affected
+        if ($stmt->rowCount() > 0) {
+            $response = [
+                'status' => 202,
+                'message' => 'OK',
+                'params' => $params['paramsBody']
+            ];
+        } else {
+            $response = [
+                'status' => 404,
+                'message' => 'Company not found',
+            ];
+        }
+
+        // Return the response as JSON
+        echo json_encode($response);
+    } catch (\Throwable $th) {
+        // Handle exceptions and return a bad request error
+        $response = [
+            'status' => 400,
+            'message' => 'Bad Request: ' . $th->getMessage(),
+        ];
+        echo json_encode($response);
     }
+}
 
-    public function deleteCompany($id) {
+public function deleteCompany($id) {
+    try {
+        // Start a transaction
+        $this->db->beginTransaction();
+
+        // Delete related invoices
+        $query = "DELETE FROM invoices WHERE company_id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Delete related contacts
+        $query = "DELETE FROM contacts WHERE company_id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Delete the company itself
         $query = "DELETE FROM companies WHERE id = :id";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
-        $stmt->execute(); // Execute SQL delete query
+        $stmt->execute();
 
-        echo json_encode(["message" => "Company deleted successfully"]); // Return success message
+        // Commit the transaction
+        $this->db->commit();
+
+        echo json_encode(["message" => "Company and related data deleted successfully"]);
+    } catch (\Exception $e) {
+        // Roll back the transaction in case of an error
+        $this->db->rollBack();
+        echo json_encode([
+            "error" => "Failed to delete company and related data: " . $e->getMessage()
+        ]);
     }
+}
+
 
     public function getCompany($id) {
         $query = "SELECT * FROM companies WHERE id = :id";
