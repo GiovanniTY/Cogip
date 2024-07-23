@@ -2,3 +2,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.h2-underline::after {
+    content: '';
+    display: block;
+    height: 20px; 
+    width: 80%;
+    background-color: #F9DE4E;
+    position: absolute;
+    bottom: 0px;
+    left: 120px;
+    transform: translateX(0); 
+    z-index: -1;
+  }
+  
