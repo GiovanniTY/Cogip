@@ -29,31 +29,6 @@
             return $dataInJson;
         }
 
-        public function signIn($database){
-            try{
-                $query = "INSERT INTO `users`(`first_name`, `role_id`, `last_name`, `email`, `password`, `created_at`, `updated_at`) 
-                VALUES(?, ?, ?, ?, ?, NOW(), NOW())";
-                $stmt = $database->prepare($query);
-                $stmt->execute(
-                    [$this->firstName,
-                    $this->roleId,
-                    $this->lastName,
-                    $this->email,
-                    $this->password
-                ]);
-                $newUserData = $stmt->fetchAll();
-                echo createJson($newUserData);
-            }
-            catch(\Throwable $e){
-                $response = [
-                    'status' => 400,
-                    'message'=> 'incorrect request'
-                ];
-                echo createJson($response);
-                echo $e;
-            }
-        }
-
         public static function dataBodyInsert(){
             $bodyData = [];
             $bodyData = file_get_contents('php://input');
