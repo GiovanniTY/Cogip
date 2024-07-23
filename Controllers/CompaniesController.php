@@ -18,7 +18,7 @@ class CompaniesController {
     public function getAllCompanies() {
 
         try{
-            $query = "SELECT companies.*, types.name FROM companies LEFT JOIN types ON companies.type_id = types.id";
+            $query = "SELECT companies.id, companies.name, companies.type_id, companies.country, companies.tva, DATE_FORMAT(companies.created_at, '%d/%m/%Y') as created_at, DATE_FORMAT(companies.updated_at, '%d/%m/%Y') as updated_at, types.name as type FROM companies LEFT JOIN types ON companies.type_id = types.id ORDER BY companies.created_at DESC";
             $stmt = $this->db->query($query);
             $companiesData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -119,6 +119,7 @@ class CompaniesController {
             $companyData['id'],
             $companyData['name'],
             $companyData['type_id'],
+            $companyData['type'],
             $companyData['country'],
             $companyData['tva'],
             $companyData['created_at'],
