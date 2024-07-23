@@ -65,9 +65,9 @@ const Invoices = () => {
   return (
     <>
       <div className=" flex flex-col mx-36 relative">
-          <h2 className="font-Inter font-black text-5xl max-w-fit relativev after:content-[''] after:bg-cogip-color after:mt-10 after:ml-10">
-            All invoices
-          </h2>
+        <h2 className="font-Inter font-black text-5xl max-w-fit relative after:content-[''] after:bg-cogip-color after:mt-10 after:ml-10">
+          All invoices
+        </h2>
         <Search onSearch={handleSearch} />
         <table className="my-8 table-auto text-left font-Roboto font-semibold">
           <thead className="bg-cogip-color">

@@ -3,58 +3,89 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className=" font-Inter text-[#737373] m-20 p-14">
-      <hr className="cogip-color"/>
+    <footer className=" font-Assistant text-[#737373] m-20 p-14">
+      <div className=" flex justify-center">
+        <hr className="border-cogip-color border m-20 w-full" />
+      </div>
       <div className="my-8 flex justify-between items-center ">
-        <h2 className="text-center text-5xl font-Roboto font-black border-cogip-color border-4 p-2 text-[#434138]">COGIP</h2>
-        <div>
+        <h2 className="text-center text-5xl font-Roboto font-black border-cogip-color border-4 p-2 text-[#434138]">
+          COGIP
+        </h2>
+        <div className="mr-16">
           <p className="mb-3">
-            <span className="text-cogip-color"> <i class="fa-solid fa-location-dot"></i></span>Square des Martyrs, 6000
-            Charleroi
+            <span className="text-cogip-color m-4">
+              {" "}
+              <i class="fa-solid fa-location-dot"></i>
+            </span>
+            Square des Martyrs, 6000 Charleroi
           </p>
           <div className="flex space-x-24">
-          <p>
-            <span className="text-cogip-color"><i class="fa-solid fa-phone"></i></span>(123) 456-7890{" "}
-          </p>
-          <p>
-            {" "}
-            <span className="text-cogip-color"><i class="fa-solid fa-print"></i></span>(123) 456-7890
-          </p>
+            <p>
+              <span className="text-cogip-color m-4">
+                <i class="fa-solid fa-phone"></i>
+              </span>
+              (123) 456-7890{" "}
+            </p>
+            <p>
+              {" "}
+              <span className="text-cogip-color m-4">
+                <i class="fa-solid fa-print"></i>
+              </span>
+              (123) 456-7890
+            </p>
           </div>
         </div>
       </div>
       <ul className="flex justify-end space-x-6">
         <li>Social Media</li>
         <li>
-          <span className="text-cogip-color"><i class="fa-brands fa-square-facebook"></i></span>
+          <span className="text-cogip-color">
+            <i class="fa-brands fa-square-facebook"></i>
+          </span>
         </li>
         <li>
-          <span className="text-cogip-color"><i class="fa-brands fa-twitter"></i></span>
+          <span className="text-cogip-color">
+            <i class="fa-brands fa-twitter"></i>
+          </span>
         </li>
         <li>
-          <span className="text-cogip-color"><i class="fa-brands fa-linkedin-in"></i></span>
+          <span className="text-cogip-color">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </span>
         </li>
         <li>
-          <span className="text-cogip-color"><i class="fa-brands fa-youtube"></i></span>
+          <span className="text-cogip-color">
+            <i class="fa-brands fa-youtube"></i>
+          </span>
         </li>
         <li>
-          <span className="text-cogip-color"><i class="fa-brands fa-youtube"></i></span>
+          <span className="text-cogip-color">
+            <i class="fa-brands fa-youtube"></i>
+          </span>
         </li>
         <li>
-          <span className="text-cogip-color"><i class="fa-brands fa-instagram"></i></span>
+          <span className="text-cogip-color">
+            <i class="fa-brands fa-instagram"></i>
+          </span>
         </li>
         <li>
-          <span className="text-cogip-color"><i class="fa-brands fa-google-plus-g"></i></span>
+          <span className="text-cogip-color">
+            <i class="fa-brands fa-google-plus-g"></i>
+          </span>
         </li>
         <li>
-          <span className="text-cogip-color"><i class="fa-brands fa-pinterest"></i></span>
+          <span className="text-cogip-color">
+            <i class="fa-brands fa-pinterest"></i>
+          </span>
         </li>
         <li>
-          <span className="text-cogip-color"><i class="fa-solid fa-wifi fa-rotate-by"></i></span>
+          <span className="text-cogip-color">
+            <i class="fa-solid fa-wifi fa-rotate-by"></i>
+          </span>
         </li>
       </ul>
-      <hr />
-      <div className="flex justify-between space-x-14 py-4">
+      <hr className="mt-16" />
+      <div className="flex justify-between space-x-14 py-6">
         <nav className="space-x-16">
           <a href="/">HOME</a>
           <a href="Invoices">INVOICES</a>

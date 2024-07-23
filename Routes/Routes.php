@@ -7,7 +7,7 @@ use App\Controllers\HomeController;
 
 $router = new Router();
 
-$router->get('/', function() {
+$router->get('/', function () {
     (new HomeController)->index();
 });
 
