@@ -16,7 +16,7 @@ class CompaniesController {
     }
 
     public function getAllCompanies() {
-        $query = "SELECT * FROM companies";
+        $query = "SELECT companies.*, types.name FROM companies LEFT JOIN types ON companies.type_id = types.id";
         $stmt = $this->db->query($query);
         $companiesData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         // Load company data using model

@@ -6,8 +6,8 @@ use Bramus\Router\Router;
 use App\Config\Database;
 use App\Controllers\CompaniesController;
 use App\Controllers\InvoicesController;
-// use App\Models\Invoices;
 use App\Controllers\ContactsController;
+use App\Controllers\UsersController;
 
 
 $router = new Router();
@@ -114,6 +114,35 @@ $router->mount('/contacts', function () use ($router) {
     $router->delete('/delete/(\d+)', function ($id) {
         $db = new Database();
         return (new ContactsController($db))->deleteContact($id);
+    });
+
+});
+
+//INVOICES
+$router->mount('/users', function () use ($router) {
+
+    // Route to get all users
+    $router->get('/', function () {
+        $db = new Database();
+        return (new UsersController($db))->getAllUsers();
+    });
+
+    // Route to create a new users
+    $router->post('/add', function () {
+        $db = new Database();
+        return (new UsersController($db))->createUser();
+    });
+
+    // Route to update an existing user
+    $router->put('/edit/(\d+)', function ($id) {
+        $db = new Database();
+        return (new UsersController($db))->updateUser($id);
+    });
+
+    // Route to delete a user
+    $router->delete('/delete/(\d+)', function ($id) {
+        $db = new Database();
+        return (new UsersController($db))->deleteUser($id);
     });
 
 });

@@ -17,8 +17,6 @@ VALUES
     (   'Vanden Borre',         'BE0987 876 780',   'Belgium',      (SELECT id FROM types WHERE name = 'Supplier'), '2020-09-25', '2020-09-25'),
     (   'Dreamland',            'FR 787 776 999',   'France',       (SELECT id FROM types WHERE name = 'Client'),   '2021-09-25', '2021-09-25');
 
-ALTER TABLE `invoices` ADD `due_date` DATETIME NOT NULL;
-
 INSERT INTO `invoices` (`ref`, `due_date`, `company_id`, `created_at`, `updated_at`)
 VALUES
     (   'F20220915-001', '2024-09-15', (SELECT id FROM companies WHERE name = 'Raviga'),'2022-09-15', '2022-09-15'),
@@ -51,10 +49,10 @@ VALUES
 
 INSERT INTO `roles` (`name`, `created_at`, `updated_at`)
 VALUES
-    ('God user', '2018-01-31', '2018-01-31'),
+    ('Admin', '2018-01-31', '2018-01-31'),
     ('Moderator', '2018-01-31', '2018-01-31');
 
 INSERT INTO `users` (`first_name`, `role_id`, `last_name`, `email`, `password`, `created_at`, `updated_at`)
 VALUES
-    ('Jean-Christian', (SELECT id FROM roles WHERE name = 'God user'), 'Ranu', 'J-Christ00@cogips.com', 'Ranu', '2018-01-31', '2018-01-31'),
+    ('Jean-Christian', (SELECT id FROM roles WHERE name = 'Administrator'), 'Ranu', 'J-Christ00@cogips.com', 'Ranu', '2018-01-31', '2018-01-31'),
     ('Muriel', (SELECT id FROM roles WHERE name = 'Moderator'), 'Perrache', 'Muriel@cogips.com', 'Perrache', '2018-01-31', '2018-01-31');
