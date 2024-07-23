@@ -1,6 +1,8 @@
+// Invoices.jsx
 import React, { useState, useEffect } from "react";
 import Search from "../components/Search";
 import Pagination from "../components/Pagination";
+import { fetchInvoices } from '../services/Api';
 import '../index.css';
 
 function Invoices() {
@@ -10,32 +12,24 @@ function Invoices() {
   const itemsPerPage = 4;
 
   useEffect(() => {
-    fetch('http://localhost/cogip/invoices/')
-        .then(response => response.json())
-        .then(data => {
-            console.log('Fetched data:', data);
-            const formattedData = data.map(invoice => ({
-                reference: invoice.reference,
-                due_date: invoice.due_date,
-                companyName: invoice.companyName,
-                createdAt: invoice.created_at
-            }));
-            setInvoices(formattedData);
-            setSearchResults(formattedData);
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-        });
+    const getInvoices = async () => {
+      try {
+        const data = await fetchInvoices();
+        setInvoices(data);
+        setSearchResults(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    getInvoices();
   }, []);
 
   const handleSearch = (query) => {
-    console.log('Search query:', query);
     const results = invoices.filter(
-        (invoice) =>
-            invoice.reference.toLowerCase().includes(query.toLowerCase()) ||
-            invoice.companyName.toLowerCase().includes(query.toLowerCase())
+      (invoice) =>
+        invoice.reference.toLowerCase().includes(query.toLowerCase()) ||
+        invoice.companyName.toLowerCase().includes(query.toLowerCase())
     );
-    console.log('Search results:', results);
     setSearchResults(results);
     setCurrentPage(1); 
   };
@@ -54,22 +48,22 @@ function Invoices() {
         All invoices
       </h2>
       <Search onSearch={handleSearch} />
-      <table className="my-8 table-auto text-left font-Roboto font-semibold">
-        <thead className="bg-cogip-color">
+      <table >
+        <thead>
           <tr>
-            <th className="p-2">Invoice number</th>
-            <th className="p-2">Due date</th>
-            <th className="p-2">Company</th>
-            <th className="p-2">Created at</th>
+            <th>Invoice number</th>
+            <th>Due date</th>
+            <th>Company</th>
+            <th>Created at</th>
           </tr>
         </thead>
         <tbody>
           {currentItems.map((invoice, index) => (
-            <tr className="even:bg-[#f5f5f5]" key={index}>
-              <td className="p-2">{invoice.reference}</td>
-              <td className="p-2">{invoice.due_date}</td>
-              <td className="p-2">{invoice.companyName}</td>
-              <td className="p-2">{invoice.createdAt}</td>
+            <tr key={index}>
+              <td>{invoice.reference}</td>
+              <td>{invoice.due_date}</td>
+              <td>{invoice.companyName}</td>
+              <td>{invoice.createdAt}</td>
             </tr>
           ))}
         </tbody>
@@ -81,6 +75,6 @@ function Invoices() {
       />
     </div>
   );
-};
+}
 
 export default Invoices;

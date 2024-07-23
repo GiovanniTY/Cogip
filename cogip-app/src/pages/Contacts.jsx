@@ -1,6 +1,8 @@
+// Contacts.jsx
 import React, { useState, useEffect } from "react";
 import Search from "../components/Search";
 import Pagination from '../components/Pagination';
+import { fetchContacts } from '../services/Api';
 
 function Contacts() {
   const [contacts, setContacts] = useState([]);
@@ -9,39 +11,31 @@ function Contacts() {
   const itemsPerPage = 4;
 
   useEffect(() => {
-      fetch('http://localhost/cogip/contacts/')
-          .then(response => response.json())
-          .then(data => {
-              console.log('Fetched data:', data);
-              const formattedData = data.map(contact => ({
-                  id: contact.id,
-                  name: contact.name,
-                  phone: contact.phone,
-                  mail: contact.email,
-                  company: contact.company_id,
-                  createdAt: contact.created_at
-              }));
-              setContacts(formattedData);
-              setSearchResults(formattedData);
-          })
-          .catch(error => console.error('Error fetching data:', error));
+    const getContacts = async () => {
+      try {
+        const data = await fetchContacts();
+        setContacts(data);
+        setSearchResults(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    getContacts();
   }, []);
 
   const handleSearch = (query) => {
-      console.log('Search query:', query);
-      const results = contacts.filter(
-          (contact) =>
-              contact.name.toLowerCase().includes(query.toLowerCase()) ||
-              contact.mail.toLowerCase().includes(query.toLowerCase()) ||
-              contact.company.toString().toLowerCase().includes(query.toLowerCase())
-      );
-      console.log('Search results:', results);
-      setSearchResults(results);
-      setCurrentPage(1); 
+    const results = contacts.filter(
+      (contact) =>
+        contact.name.toLowerCase().includes(query.toLowerCase()) ||
+        contact.mail.toLowerCase().includes(query.toLowerCase()) ||
+        contact.company.toString().toLowerCase().includes(query.toLowerCase())
+    );
+    setSearchResults(results);
+    setCurrentPage(1); 
   };
 
   const handlePageChange = (page) => {
-      setCurrentPage(page);
+    setCurrentPage(page);
   };
 
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -49,9 +43,9 @@ function Contacts() {
   const totalPages = Math.ceil(searchResults.length / itemsPerPage);
 
   return (
-    <>
-        <h2 className="font-Inter font-black text-4xl">All contacts</h2>
-        <Search onSearch={handleSearch} />
+    <div className="flex flex-col mx-36 relative">
+      <h2 className="font-Inter font-black text-5xl max-w-fit relative h2-underline">All contacts</h2>
+      <Search onSearch={handleSearch} />
       <table>
         <thead>
           <tr>
@@ -79,7 +73,7 @@ function Contacts() {
         totalPages={totalPages}
         onPageChange={handlePageChange}
       />
-    </>
+    </div>
   );
 }
 

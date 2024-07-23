@@ -1,6 +1,8 @@
+// Companies.jsx
 import React, { useState, useEffect } from 'react';
 import Search from '../components/Search';
 import Pagination from '../components/Pagination';
+import { fetchCompanies } from '../services/Api';
 
 function Companies() {
   const [companies, setCompanies] = useState([]);
@@ -9,32 +11,24 @@ function Companies() {
   const itemsPerPage = 4;
 
   useEffect(() => {
-    fetch('http://localhost/cogip/companies/')
-        .then(response => response.json())
-        .then(data => {
-            console.log('Fetched data:', data);
-            const formattedData = data.map(companie => ({
-                id: companie.id,
-                name: companie.name,
-                typeName: companie.typeName,
-                country: companie.country,
-                tva: companie.tva,
-                createdAt: companie.created_at
-            }));
-            setCompanies(formattedData);
-            setSearchResults(formattedData);
-        })
-        .catch(error => console.error('Error fetching data:', error));
+    const getCompanies = async () => {
+      try {
+        const data = await fetchCompanies();
+        setCompanies(data);
+        setSearchResults(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    getCompanies();
   }, []);
 
   const handleSearch = (query) => {
-    console.log('Search query:', query);
     const results = companies.filter(
       (company) =>
         company.name.toLowerCase().includes(query.toLowerCase()) ||
         company.country.toString().toLowerCase().includes(query.toLowerCase())
     );
-    console.log('Search results:', results);
     setSearchResults(results);
     setCurrentPage(1); 
   };
@@ -48,8 +42,8 @@ function Companies() {
   const totalPages = Math.ceil(searchResults.length / itemsPerPage);
 
   return (
-    <div>
-      <h1 className="font-Inter font-black text-4xl">All companies</h1>
+    <div className="flex flex-col mx-36 relative">
+      <h2 className="font-Inter font-black text-5xl max-w-fit relative h2-underline">All companies</h2>
       <Search onSearch={handleSearch} />
       <table>
         <thead>

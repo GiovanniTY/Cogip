@@ -1,6 +1,6 @@
 import React from 'react';
 import Sidebar from './Sidebar';
-import dashboardImage from '../assets/Layer 2.png';
+import dashboardImage from '../../assets/Layer 2.png';
 
 const DashboardLayout = ({ children }) => (
   <div className="flex h-screen">

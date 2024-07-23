@@ -1,10 +1,16 @@
 import React from "react";
 import footerImage from "../assets/Footer.png";
-import { Link } from "react-router-dom";
+import LatestInvoices from "../components/home/LastInvoices";
+import LatestContacts from "../components/home/LastContacts";
+import LatestCompanies from "../components/home/LastCompanies";
+
 
 function Home() {
   return (
     <div>
+      <LatestInvoices />
+      <LatestContacts />
+      <LatestCompanies />
       <div className="flex items-center justify-between my-16">
         <p className="ml-[100px] text-left font-Inter font-black text-6xl">
           WORK BETTER <br /> IN YOUR <br /> COMPANY

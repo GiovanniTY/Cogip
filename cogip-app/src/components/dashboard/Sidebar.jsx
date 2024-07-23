@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import adminImage from '../assets/Avatar.png';
+import adminImage from '../../assets/Avatar.png';
 
 const Sidebar = () => {
   return (

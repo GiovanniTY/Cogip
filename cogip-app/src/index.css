@@ -15,4 +15,22 @@
     transform: translateX(0); 
     z-index: -1;
   }
+
+  @layer base {
+    table {
+      @apply my-8 table-auto text-left font-Roboto font-semibold;
+    }
   
+    thead {
+      @apply bg-cogip-color;
+    }
+  
+    th,
+    td {
+      @apply p-2;
+    }
+  
+    tr:nth-child(even) {
+      @apply bg-[#f5f5f5];
+    }
+  }
