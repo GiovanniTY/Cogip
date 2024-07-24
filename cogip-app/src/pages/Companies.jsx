@@ -1,109 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import Search from '../components/Search';
 import Pagination from '../components/Pagination';
-
-const companiesData = [
-    {
-        name: 'Raviga',
-        tva: 'US456 654 321',
-        country: 'United States',
-        type: 'Supplier',
-        createdAt: '25/09/2020',
-    },
-    {
-        name: 'Dunder Mifflin',
-        tva: 'US676 787 767',
-        country: 'United States',
-        type: 'Client',
-        createdAt: '25/09/2020',
-    },
-    {
-        name: 'Pierre Cailloux',
-        tva: 'FR 676 676 676',
-        country: 'France',
-        type: 'Supplier',
-        createdAt: '25/09/2020',
-    },
-    {
-        name: 'Belgalol',
-        tva: 'BE0987 876 787',
-        country: 'Belgium',
-        type: 'Supplier',
-        createdAt: '25/09/2020',
-    },
-    {
-        name: 'Jouet Jean-Michel',
-        tva: 'FR 787 776 999',
-        country: 'France',
-        type: 'Client',
-        createdAt: '25/09/2020',
-    },
-    {
-        name: 'Raviga',
-        tva: 'US456 654 321',
-        country: 'United States',
-        type: 'Supplier',
-        createdAt: '25/09/2020',
-    },
-    {
-        name: 'Dunder Mifflin',
-        tva: 'US676 787 767',
-        country: 'United States',
-        type: 'Client',
-        createdAt: '25/09/2020',
-    },
-    {
-        name: 'Pierre Cailloux',
-        tva: 'FR 676 676 676',
-        country: 'France',
-        type: 'Supplier',
-        createdAt: '25/09/2020',
-    },
-    {
-        name: 'Belgalol',
-        tva: 'BE0987 876 787',
-        country: 'Belgium',
-        type: 'Supplier',
-        createdAt: '25/09/2020',
-    },
-    {
-        name: 'Jouet Jean-Michel',
-        tva: 'FR 787 776 999',
-        country: 'France',
-        type: 'Client',
-        createdAt: '25/09/2020',
-    },
-];
+import { fetchCompanies } from '../services/Api';
 
 function Companies() {
+  const [companies, setCompanies] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
 
-    const [searchResults, setSearchResults] = useState(companiesData);
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 4;
-
-    const handleSearch = (query) => {
-        const results = companiesData.filter(
-        (company) =>
-            company.name.toLowerCase().includes(query.toLowerCase()) ||
-            company.tva.toLowerCase().includes(query.toLowerCase()) ||
-            company.country.toLowerCase().includes(query.toLowerCase()) ||
-            company.type.toLowerCase().includes(query.toLowerCase())
-        );
-        setSearchResults(results);
-        setCurrentPage(1); 
+  useEffect(() => {
+    const getCompanies = async () => {
+      try {
+        const data = await fetchCompanies();
+        console.log('Fetched companies data:', data);
+        setCompanies(data);
+        setSearchResults(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
+    getCompanies();
+  }, []);
 
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-    };
+  const handleSearch = (query) => {
+    const results = companies.filter(
+      (company) =>
+        company.name.toLowerCase().includes(query.toLowerCase()) ||
+        company.country.toLowerCase().includes(query.toLowerCase())
+    );
+    setSearchResults(results);
+    setCurrentPage(1);
+  };
 
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentItems = searchResults.slice(startIndex, startIndex + itemsPerPage);
-    const totalPages = Math.ceil(searchResults.length / itemsPerPage);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = searchResults.slice(startIndex, startIndex + itemsPerPage);
+  const totalPages = Math.ceil(searchResults.length / itemsPerPage);
 
   return (
-    <div>
-      <h1 className="font-Inter font-black text-4xl">All companies</h1>
+    <div className="flex flex-col mx-36 relative">
+      <h2 className="font-Inter font-black text-5xl max-w-fit relative h2-underline">All companies</h2>
       <Search onSearch={handleSearch} />
       <table>
         <thead>
@@ -121,7 +61,7 @@ function Companies() {
               <td>{company.name}</td>
               <td>{company.tva}</td>
               <td>{company.country}</td>
-              <td>{company.type}</td>
+              <td>{company.typeName}</td>
               <td>{company.createdAt}</td>
             </tr>
           ))}
