@@ -1,4 +1,3 @@
-// Contacts.jsx
 import React, { useState, useEffect } from "react";
 import Search from "../components/Search";
 import Pagination from '../components/Pagination';

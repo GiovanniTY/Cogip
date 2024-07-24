@@ -11,6 +11,7 @@ function Home() {
       <LatestInvoices />
       <LatestContacts />
       <LatestCompanies />
+      
       <div className="flex items-center justify-between my-16">
         <p className="ml-[100px] text-left font-Inter font-black text-6xl">
           WORK BETTER <br /> IN YOUR <br /> COMPANY

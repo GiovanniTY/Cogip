@@ -1,4 +1,3 @@
-// Companies.jsx
 import React, { useState, useEffect } from 'react';
 import Search from '../components/Search';
 import Pagination from '../components/Pagination';
@@ -14,6 +13,7 @@ function Companies() {
     const getCompanies = async () => {
       try {
         const data = await fetchCompanies();
+        console.log('Fetched companies data:', data);
         setCompanies(data);
         setSearchResults(data);
       } catch (error) {
@@ -27,10 +27,10 @@ function Companies() {
     const results = companies.filter(
       (company) =>
         company.name.toLowerCase().includes(query.toLowerCase()) ||
-        company.country.toString().toLowerCase().includes(query.toLowerCase())
+        company.country.toLowerCase().includes(query.toLowerCase())
     );
     setSearchResults(results);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const handlePageChange = (page) => {

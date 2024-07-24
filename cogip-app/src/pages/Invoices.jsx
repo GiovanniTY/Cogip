@@ -1,9 +1,7 @@
-// Invoices.jsx
 import React, { useState, useEffect } from "react";
 import Search from "../components/Search";
 import Pagination from "../components/Pagination";
 import { fetchInvoices } from '../services/Api';
-import '../index.css';
 
 function Invoices() {
   const [invoices, setInvoices] = useState([]);
@@ -31,7 +29,7 @@ function Invoices() {
         invoice.companyName.toLowerCase().includes(query.toLowerCase())
     );
     setSearchResults(results);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const handlePageChange = (page) => {
@@ -48,7 +46,7 @@ function Invoices() {
         All invoices
       </h2>
       <Search onSearch={handleSearch} />
-      <table >
+      <table>
         <thead>
           <tr>
             <th>Invoice number</th>

@@ -5,8 +5,13 @@ export const fetchContacts = async () => {
   if (!response.ok) {
     throw new Error('Failed to fetch contacts');
   }
-  const data = await response.json();
-  return data.map(contact => ({
+  const responseData = await response.json();
+  console.log('Contacts data:', responseData); 
+  if (!Array.isArray(responseData)) {
+    console.error('Contacts data is not an array:', responseData);
+    throw new Error('Contacts data is not an array');
+  }
+  return responseData.map(contact => ({
     id: contact.id,
     name: contact.name,
     phone: contact.phone,
@@ -21,8 +26,13 @@ export const fetchInvoices = async () => {
   if (!response.ok) {
     throw new Error('Failed to fetch invoices');
   }
-  const data = await response.json();
-  return data.map(invoice => ({
+  const responseData = await response.json();
+  console.log('Invoices data:', responseData); 
+  if (!Array.isArray(responseData.data)) {
+    console.error('Invoices data is not an array:', responseData);
+    throw new Error('Invoices data is not an array');
+  }
+  return responseData.data.map(invoice => ({
     reference: invoice.reference,
     due_date: invoice.due_date,
     companyName: invoice.companyName,
@@ -35,13 +45,18 @@ export const fetchCompanies = async () => {
   if (!response.ok) {
     throw new Error('Failed to fetch companies');
   }
-  const data = await response.json();
-  return data.map(companie => ({
-    id: companie.id,
-    name: companie.name,
-    typeName: companie.typeName,
-    country: companie.country,
-    tva: companie.tva,
-    createdAt: companie.created_at,
+  const responseData = await response.json();
+  console.log('Companies data:', responseData); 
+  if (!Array.isArray(responseData.data)) {
+    console.error('Companies data is not an array:', responseData);
+    throw new Error('Companies data is not an array');
+  }
+  return responseData.data.map(company => ({
+    id: company.id,
+    name: company.name,
+    typeName: company.typeName,
+    country: company.country,
+    tva: company.tva,
+    createdAt: company.created_at,
   }));
 };
