@@ -42,14 +42,8 @@ function Footer() {
           <span className="text-cogip-color">
             <i class="fa-brands fa-square-facebook"></i>
           </span>
-          <span className="text-cogip-color">
-            <i class="fa-brands fa-square-facebook"></i>
-          </span>
         </li>
         <li>
-          <span className="text-cogip-color">
-            <i class="fa-brands fa-twitter"></i>
-          </span>
           <span className="text-cogip-color">
             <i class="fa-brands fa-twitter"></i>
           </span>
@@ -58,30 +52,14 @@ function Footer() {
           <span className="text-cogip-color">
             <i class="fa-brands fa-linkedin-in"></i>
           </span>
-          <span className="text-cogip-color">
-            <i class="fa-brands fa-linkedin-in"></i>
-          </span>
         </li>
         <li>
           <span className="text-cogip-color">
             <i class="fa-brands fa-youtube"></i>
           </span>
-          <span className="text-cogip-color">
-            <i class="fa-brands fa-youtube"></i>
-          </span>
         </li>
+
         <li>
-          <span className="text-cogip-color">
-            <i class="fa-brands fa-youtube"></i>
-          </span>
-          <span className="text-cogip-color">
-            <i class="fa-brands fa-youtube"></i>
-          </span>
-        </li>
-        <li>
-          <span className="text-cogip-color">
-            <i class="fa-brands fa-instagram"></i>
-          </span>
           <span className="text-cogip-color">
             <i class="fa-brands fa-instagram"></i>
           </span>
@@ -90,22 +68,13 @@ function Footer() {
           <span className="text-cogip-color">
             <i class="fa-brands fa-google-plus-g"></i>
           </span>
-          <span className="text-cogip-color">
-            <i class="fa-brands fa-google-plus-g"></i>
-          </span>
         </li>
         <li>
           <span className="text-cogip-color">
             <i class="fa-brands fa-pinterest"></i>
           </span>
-          <span className="text-cogip-color">
-            <i class="fa-brands fa-pinterest"></i>
-          </span>
         </li>
         <li>
-          <span className="text-cogip-color">
-            <i class="fa-solid fa-wifi fa-rotate-by"></i>
-          </span>
           <span className="text-cogip-color">
             <i class="fa-solid fa-wifi fa-rotate-by"></i>
           </span>
