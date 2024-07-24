@@ -4,8 +4,8 @@ USE `cogips`;
 CREATE TABLE IF NOT EXISTS `types`(
     `id`            INT UNSIGNED    NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name`          VARCHAR(50)     NOT NULL,
-    `created_at`    DATETIME        NOT NULL,
-    `updated_at`    DATETIME        NOT NULL
+    `created_at`    DATE        NOT NULL,
+    `updated_at`    DATE        NOT NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `companies`(
@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS `companies`(
     `type_id`       INT UNSIGNED    NOT NULL,
     `country`       VARCHAR(50)     NOT NULL,
     `tva`           VARCHAR(50)     NOT NULL,
-    `created_at`    DATETIME        NOT NULL,
-    `updated_at`    DATETIME        NOT NULL,
+    `created_at`    DATE        NOT NULL,
+    `updated_at`    DATE        NOT NULL,
     FOREIGN KEY (`type_id`) REFERENCES `types`(`id`)
 ) ENGINE=InnoDB;
 
@@ -23,8 +23,9 @@ CREATE TABLE IF NOT EXISTS `invoices`(
     `id`            INT UNSIGNED    NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `ref`           VARCHAR(50)     NOT NULL,
     `company_id`    INT UNSIGNED    NOT NULL,
-    `created_at`    DATETIME        NOT NULL,
-    `updated_at`    DATETIME        NOT NULL,
+    `due_date`      DATE        NOT NULL
+    `created_at`    DATE        NOT NULL,
+    `updated_at`    DATE        NOT NULL,
     FOREIGN KEY (`company_id`) REFERENCES `companies`(`id`)
 ) ENGINE=InnoDB;
 
@@ -34,23 +35,23 @@ CREATE TABLE IF NOT EXISTS `contacts`(
     `company_id`    INT UNSIGNED    NOT NULL,
     `email`         VARCHAR(50)     NOT NULL,
     `phone`         VARCHAR(50)     NOT NULL,
-    `created_at`    DATETIME        NOT NULL,
-    `updated_at`    DATETIME        NOT NULL,
+    `created_at`    DATE        NOT NULL,
+    `updated_at`    DATE        NOT NULL,
     FOREIGN KEY (`company_id`) REFERENCES `companies`(`id`)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `roles`(
     `id`            INT UNSIGNED    NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name`          VARCHAR(50)     NOT NULL,
-    `created_at`    DATETIME        NOT NULL,
-    `updated_at`    DATETIME        NOT NULL
+    `created_at`    DATE        NOT NULL,
+    `updated_at`    DATE        NOT NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `permissions`(
     `id`            INT UNSIGNED    NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name`          VARCHAR(50)     NOT NULL,
-    `created_at`    DATETIME        NOT NULL,
-    `updated_at`    DATETIME        NOT NULL
+    `created_at`    DATE        NOT NULL,
+    `updated_at`    DATE        NOT NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `roles_permissions`(
@@ -68,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `users`(
     `last_name`     VARCHAR(50)     NOT NULL,
     `email`         VARCHAR(50)     NOT NULL,
     `password`      VARCHAR(50)     NOT NULL,
-    `created_at`    DATETIME        NOT NULL,
-    `updated_at`    DATETIME        NOT NULL,
+    `created_at`    DATE        NOT NULL,
+    `updated_at`    DATE        NOT NULL,
     FOREIGN KEY (`role_id`) REFERENCES `roles`(`id`)
 ) ENGINE=InnoDB;

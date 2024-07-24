@@ -6,8 +6,10 @@ use Bramus\Router\Router;
 use App\Config\Database;
 use App\Controllers\CompaniesController;
 use App\Controllers\InvoicesController;
-// use App\Models\Invoices;
 use App\Controllers\ContactsController;
+use App\Controllers\UsersController;
+use App\Controllers\LoginController;
+
 
 
 $router = new Router();
@@ -117,5 +119,46 @@ $router->mount('/contacts', function () use ($router) {
     });
 
 });
+
+//INVOICES
+$router->mount('/users', function () use ($router) {
+
+    // Route to get all users
+    $router->get('/', function () {
+        $db = new Database();
+        return (new UsersController($db))->getAllUsers();
+    });
+
+    // Route to create a new users
+    $router->post('/add', function () {
+        $db = new Database();
+        return (new UsersController($db))->createUser();
+    });
+
+    // Route to update an existing user
+    $router->put('/edit/(\d+)', function ($id) {
+        $db = new Database();
+        return (new UsersController($db))->updateUser($id);
+    });
+
+    // Route to delete a user
+    $router->delete('/delete/(\d+)', function ($id) {
+        $db = new Database();
+        return (new UsersController($db))->deleteUser($id);
+    });
+
+});
+
+// LOGIN
+    $router->post('/login', function(){
+        $db = new Database();
+        return (new LoginController($db))->login();
+    });
+
+// LOGOUT
+    $router->post('/logout/{key}', function($key){
+        $db = new Database();
+        return (new LoginController($db))->logout($key);
+    });
 
 $router->run();
