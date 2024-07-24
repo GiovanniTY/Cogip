@@ -8,9 +8,9 @@ import Companies from './pages/Companies';
 import Contacts from './pages/Contacts';
 import Signup from './forms/Signup';
 import Login from './forms/Login';
-import DashboardHome from './components/DashboardHome';
-import Dashboardinvoices from './components/Dashboardinvoices';
-import DashboardLayout from './components/DashboardLayout'; 
+import DashboardHome from './components/dashboard/DashboardHome';
+import Dashboardinvoices from './components/dashboard/Dashboardinvoices';
+import DashboardLayout from './components/dashboard/DashboardLayout'; 
 
 function App() {
   return (
