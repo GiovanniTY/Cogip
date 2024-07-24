@@ -68,7 +68,7 @@ class users {
         $bodyDatas = json_decode($bodydata, true);
  
         $params = [
-            ':role' => self::securityInput($bodyDatas['role']),
+            ':role' => self::securityInput($bodyDatas['role'].'%'),
             ':updated_at' => self::dates('Y-m-d H:i:s'),
             ':id' => self::securityInput(intval($id))
         ];
