@@ -50,7 +50,7 @@ class UsersController {
     public function updateUser($id) {
         $params = Users::dataRoleUpdate($id); // Extract and sanitize data from request body for update
 
-        $query = "UPDATE users SET role_id = :role_id, updated_at = :updated WHERE id = :id";
+        $query = "UPDATE users SET role_id = (SELECT id FROM roles WHERE name = :role), updated_at = :updated_at WHERE id = :id";
         $stmt = $this->db->prepare($query);
         $stmt->execute($params); // Execute SQL query with parameters
 
