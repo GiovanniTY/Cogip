@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Search from "../components/Search";
 import Pagination from '../components/Pagination';
-import { fetchContacts } from '../services/Api';
+import { fetchContacts, fetchCompanies } from '../services/Api';
 
 function Contacts() {
   const [contacts, setContacts] = useState([]);
@@ -10,16 +10,29 @@ function Contacts() {
   const itemsPerPage = 4;
 
   useEffect(() => {
-    const getContacts = async () => {
+    const getContactsAndCompanies = async () => {
       try {
-        const data = await fetchContacts();
-        setContacts(data);
-        setSearchResults(data);
+        const [contactsData, companiesData] = await Promise.all([fetchContacts(), fetchCompanies()]);
+        
+        // Create a map of company ID to company name
+        const companiesMap = companiesData.reduce((map, company) => {
+          map[company.id] = company.name;
+          return map;
+        }, {});
+
+        // Map company IDs to company names in contacts
+        const contactsWithCompanyNames = contactsData.map(contact => ({
+          ...contact,
+          company: companiesMap[contact.company] || 'Unknown'
+        }));
+
+        setContacts(contactsWithCompanyNames);
+        setSearchResults(contactsWithCompanyNames);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-    getContacts();
+    getContactsAndCompanies();
   }, []);
 
   const handleSearch = (query) => {
@@ -27,7 +40,7 @@ function Contacts() {
       (contact) =>
         contact.name.toLowerCase().includes(query.toLowerCase()) ||
         contact.mail.toLowerCase().includes(query.toLowerCase()) ||
-        contact.company.toString().toLowerCase().includes(query.toLowerCase())
+        contact.company.toLowerCase().includes(query.toLowerCase())
     );
     setSearchResults(results);
     setCurrentPage(1); 
