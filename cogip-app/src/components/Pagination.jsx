@@ -18,12 +18,13 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
   }
 
   return (
-    <div className='self-center'>
-      <button onClick={handlePrevious} disabled={currentPage === 1}>
-        Previous
+    <div className='self-center font-Roboto font-bold'>
+      <button className=" rounded px-2 border m-1 text-cogip-color" onClick={handlePrevious} disabled={currentPage === 1}>
+        &lt;
       </button>
       {Array.from({ length: totalPages }, (_, index) => (
         <button
+          className=" rounded px-2 border m-1"
           key={index + 1}
           onClick={() => handlePageChange(index + 1)}
           disabled={index + 1 === currentPage}
@@ -31,8 +32,8 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
           {index + 1}
         </button>
       ))}
-      <button onClick={handleNext} disabled={currentPage === totalPages}>
-        Next
+      <button className=" rounded px-2 border m-1 text-cogip-color" onClick={handleNext} disabled={currentPage === totalPages}>
+        &gt;
       </button>
     </div>
   );
