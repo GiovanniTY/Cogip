@@ -25,7 +25,7 @@ class InvoicesController
                                 invoices.ref    AS reference,
                                 invoices.company_id, 
                                 companies.name  AS companyName, 
-                                invoices.due_date, 
+                                DATE_FORMAT(invoices.due_date, '%d/%m/%Y') as due_date, 
                                 DATE_FORMAT(invoices.created_at, '%d/%m/%Y') as created_at, 
                                 DATE_FORMAT(invoices.updated_at, '%d/%m/%Y') as updated_at 
                     FROM invoices 
@@ -114,7 +114,7 @@ class InvoicesController
                         invoices.ref    AS reference,
                         invoices.company_id, 
                         companies.name  AS companyName, 
-                        invoices.due_date, 
+                        DATE_FORMAT(invoices.due_date, '%d/%m/%Y') as due_date, 
                         DATE_FORMAT(invoices.created_at, '%d/%m/%Y') as created_at, 
                         DATE_FORMAT(invoices.updated_at, '%d/%m/%Y') as updated_at 
                     FROM invoices 
@@ -127,13 +127,13 @@ class InvoicesController
         $invoiceData = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         if (!$invoiceData) {
-            echo json_encode(["error" => "Invoice not found"]); // Return error if company not found
+            echo json_encode(["error" => "Invoice not found"]); // Return error if invoice not found
             return;
         }
 
         $invoice = new Invoices(
             $invoiceData['id'],
-            $invoiceData['ref'],
+            $invoiceData['reference'],
             $invoiceData['company_id'],
             $invoiceData['companyName'],
             $invoiceData['due_date'],
@@ -141,7 +141,32 @@ class InvoicesController
             $invoiceData['updated_at']
         );
 
-        echo json_encode($invoice); // Return invoice data encoded in JSON
+        echo json_encode($invoice->toArray()); // Return invoice data encoded in JSON
+    }
+
+    public function getAllCompanyInvoices($id) {
+        $query ="SELECT invoices.id, 
+                        invoices.ref    AS reference,
+                        invoices.company_id, 
+                        companies.name  AS companyName, 
+                        DATE_FORMAT(invoices.due_date, '%d/%m/%Y') as due_date, 
+                        DATE_FORMAT(invoices.created_at, '%d/%m/%Y') as created_at, 
+                        DATE_FORMAT(invoices.updated_at, '%d/%m/%Y') as updated_at 
+                    FROM invoices 
+                        LEFT JOIN companies 
+                        ON invoices.company_id = companies.id 
+                    WHERE invoices.company_id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+        $stmt->execute();
+        $invoicesData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        error_log('Contacts data retieved: ' . print_r($invoicesData, true));
+        // Load invoice data using model
+        $invoices = Invoices::loadData($invoicesData);
+
+        echo json_encode($invoices);
+        
     }
     // public function index()
     // {
