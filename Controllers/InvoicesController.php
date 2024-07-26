@@ -77,7 +77,7 @@ class InvoicesController
         $params = Invoices::dataBodyInsert(); 
 
         $query = "INSERT INTO invoices (ref, company_id, due_date, created_at, updated_at) 
-                  VALUES (:ref, :company_id, :due_date, :created_at, :updated_at)"; 
+                  VALUES (:ref, (SELECT id FROM companies WHERE name LIKE :company), :due_date, :created_at, :updated_at)"; 
         $stmt = $this->db->prepare($query);
         // Execute SQL query with parameters
         $stmt->execute($params); 
@@ -90,10 +90,9 @@ class InvoicesController
     {
         $params = Invoices::dataBodyUpdate($id); // Extract and sanitize data from request body for update
 
-        $query = "
-            UPDATE  invoices 
-            SET     {$params['paramsSet']} 
-            WHERE   id = :id";
+        $query =    "UPDATE  invoices 
+                    SET     {$params['paramsSet']} 
+                    WHERE   id = :id";
         $stmt = $this->db->prepare($query);
         $stmt->execute($params['paramsBody']); // Execute SQL query with parameters
 

@@ -54,7 +54,7 @@ class CompaniesController {
     
         // SQL query for entering a new company
         $query = "INSERT INTO companies (name, type_id, country, tva, created_at, updated_at)
-                  VALUES (:name, :type_id, :country, :tva, :created_at, :updated_at)";
+                  VALUES (:name, (SELECT id FROM types WHERE name LIKE :type), :country, :tva, :created_at, :updated_at)";
     
         // Prepare stmt 
         $stmt = $this->db->prepare($query);

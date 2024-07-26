@@ -57,7 +57,7 @@ class Contacts {
 
         $params = [
             ':name' => self::securityInput($bodyDatas['name']),
-            ':company_id' => self::securityInput($bodyDatas['company_id']),
+            ':company' => self::securityInput($bodyDatas['company'].'%'),
             ':email'=> self::securityInput($bodyDatas['email']),
             ':phone'=> self::securityInput($bodyDatas['phone']),
             ':created_at'=> self::dates('Y-m-d h:i:s'),
@@ -80,7 +80,11 @@ class Contacts {
             $paramsBody[":{$key}"] = self::securityInput($value);
         }
         foreach($bodyDatas as $key => $value){
-            $paramsSet .= "{$key} = :{$key}, ";
+            if ($key == 'company'){
+                $paramsSet .= "{$key}_id = (SELECT id FROM companies WHERE name LIKE :{$key}), ";
+            }else{
+                $paramsSet .= "{$key} = :{$key}, ";
+            }
         }
         $paramsSet .= 'updated_at = :updated_at';
         $paramsNoBody = [
