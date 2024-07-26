@@ -1,21 +1,29 @@
 import React from 'react';
 
-function DashboardInvoices() {
+function DashboardContacts() {
   return (
     <div>
-      <p>dashboard/new-invoice</p>
+      <p>dashboard/new-contact</p>
       <form className="bg-white p-6 rounded">
-        <h2 className="text-2xl font-bold mb-4 flex items-center justify-center">New invoice</h2>
+        <h2 className="text-2xl font-bold mb-4 flex items-center justify-center">New contact</h2>
         <div className="mb-4">
           <input
-            placeholder='Reference'
+            placeholder='Full name'
             type="text"
             required
             className="mt-1 p-2 w-full border border-gray-300 rounded"
           />
         </div>
         <div className="mb-4">
-          <input className="mt-1 p-2 w-full border border-gray-300 rounded" placeholder='Price' type="text" id="price" name="price" />
+          <input
+            placeholder='exemple@gmail.com'
+            type="mail"
+            required
+            className="mt-1 p-2 w-full border border-gray-300 rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <input className="mt-1 p-2 w-full border border-gray-300 rounded" placeholder='Phone' type="number" id="price" name="price" />
         </div>
         <div className="mb-4">
           <input
@@ -33,4 +41,4 @@ function DashboardInvoices() {
   );
 };
 
-export default DashboardInvoices;
+export default DashboardContacts;

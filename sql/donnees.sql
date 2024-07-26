@@ -54,5 +54,5 @@ VALUES
 
 INSERT INTO `users` (`first_name`, `role_id`, `last_name`, `email`, `password`, `created_at`, `updated_at`)
 VALUES
-    ('Jean-Christian', (SELECT id FROM roles WHERE name = 'Administrator'), 'Ranu', 'J-Christ00@cogips.com', 'Ranu', '2018-01-31', '2018-01-31'),
+    ('Jean-Christian', (SELECT id FROM roles WHERE name = 'Admin'), 'Ranu', 'J-Christ00@cogips.com', 'Ranu', '2018-01-31', '2018-01-31'),
     ('Muriel', (SELECT id FROM roles WHERE name = 'Moderator'), 'Perrache', 'Muriel@cogips.com', 'Perrache', '2018-01-31', '2018-01-31');
