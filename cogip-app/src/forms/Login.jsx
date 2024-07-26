@@ -11,12 +11,13 @@ function Login() {
     event.preventDefault(); // Evita il comportamento di invio predefinito
 
     try {
-      const response = await fetch('http://localhost:8888/Cogip/login/', {
+      const response = await fetch('http://localhost:8000/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: "email", 
+          password: "password" }),
       });
 
       const data = await response.json();
@@ -37,11 +38,11 @@ function Login() {
 
   return (
     <div className="flex font-Roboto items-center justify-center p-8">
-      <form onSubmit={handleSubmit} className="p-6 rounded shadow-md w-80">
+      <form method="POST" onSubmit={handleSubmit} className="p-6 rounded shadow-md w-80">
         <h2 className="text-2xl font-bold mb-4 flex items-center justify-center">Login</h2>
         <div className="mb-4">
-          <label className="block text-gray-700">Email</label>
-          <input
+          <label for="email" className="block text-gray-700">Email</label>
+          <input id="email" name="email"
             type="email"
             required
             value={email}
@@ -50,8 +51,8 @@ function Login() {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700">Password</label>
-          <input
+          <label for="password" className="block text-gray-700">Password</label>
+          <input id="password" name="password"
             type="password"
             required
             value={password}

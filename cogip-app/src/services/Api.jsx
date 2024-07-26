@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8888/Cogip/';
+const BASE_URL = 'http://localhost:8000/';
 
 export const fetchContacts = async () => {
   const response = await fetch(`${BASE_URL}/contacts/`);
