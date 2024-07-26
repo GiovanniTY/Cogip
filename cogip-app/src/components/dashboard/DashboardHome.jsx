@@ -4,6 +4,9 @@ import { fetchContacts, fetchCompanies, fetchInvoices } from '../../services/Api
 
 function DashboardHome() {
   const [latestCompanies, setLatestCompanies] = useState([]);
+  const [totalContacts, setTotalContacts] = useState(0);
+  const [totalInvoices, setTotalInvoices] = useState(0);
+  const [totalCompanies, setTotalCompanies] = useState(0);
   const [latestContacts, setLatestContacts] = useState([]);
   const [latestInvoices, setLatestInvoices] = useState([]);
 
@@ -11,6 +14,7 @@ function DashboardHome() {
     const getCompanies = async () => {
       try {
         const data = await fetchCompanies();
+        setTotalCompanies(data.length); 
         setLatestCompanies(data.slice(-5));
       } catch (error) {
         console.error('Error fetching companies:', error);
@@ -20,7 +24,8 @@ function DashboardHome() {
     const getContacts = async () => {
       try {
         const data = await fetchContacts();
-        setLatestContacts(data.slice(-5));
+        setTotalContacts(data.length); 
+        setLatestContacts(data.slice(-5)); 
       } catch (error) {
         console.error('Error fetching contacts:', error);
       }
@@ -29,7 +34,8 @@ function DashboardHome() {
     const getInvoices = async () => {
       try {
         const data = await fetchInvoices();
-        setLatestInvoices(data.slice(-5)); // Fetch and store the latest 5 invoices
+        setTotalInvoices(data.length); 
+        setLatestInvoices(data.slice(-5));
       } catch (error) {
         console.error('Error fetching invoices:', error);
       }
@@ -43,8 +49,16 @@ function DashboardHome() {
   return (
     <>
       <p>Dashboard/</p>
-      <div>
-        <div>
+      <div className='font-Inter font-semibold bg-white rounded-xl my-6'>
+        <h2 className='pt-2 mx-6 text-xl'>Statistics</h2>
+        <div className='flex text-bold justify-around p-6'>
+          <h3 className='stat-circle bg-violet-700'>{totalInvoices}<br/>Invoices</h3>
+          <h3 className='stat-circle bg-violet-400'>{totalContacts}<br/>Contacts</h3>
+          <h3 className='stat-circle bg-red-300'>{totalCompanies}<br/>Companies</h3>
+        </div>
+      </div>
+      <div className='dashboard'>
+        <div className='dashboardDiv'>
           <LatestTable
             title="Last Contacts"
             data={latestContacts}
@@ -56,7 +70,7 @@ function DashboardHome() {
           />
         </div>
 
-        <div>
+        <div className='dashboardDiv'>
           <LatestTable
             title="Last Companies"
             data={latestCompanies}
@@ -68,7 +82,7 @@ function DashboardHome() {
           />
         </div>
 
-        <div>
+        <div className='dashboardDiv'>
           <LatestTable
             title="Last Invoices"
             data={latestInvoices}

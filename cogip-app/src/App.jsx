@@ -9,7 +9,9 @@ import Contacts from './pages/Contacts';
 import Signup from './forms/Signup';
 import Login from './forms/Login';
 import DashboardHome from './components/dashboard/DashboardHome';
-import Dashboardinvoices from './components/dashboard/Dashboardinvoices';
+import DashboardInvoices from './components/dashboard/Dashboardinvoices';
+import DashboardContacts from './components/dashboard/Dashboardcontacts';
+import DashboardCompanies from './components/dashboard/Dashboardcompanies';
 import DashboardLayout from './components/dashboard/DashboardLayout'; 
 
 function App() {
@@ -39,7 +41,9 @@ function App() {
             <DashboardLayout>
               <Routes>
                 <Route path="/" element={<DashboardHome />} />
-                <Route path="/settings" element={<Dashboardinvoices />} />
+                <Route path="invoices" element={<DashboardInvoices />} />
+                <Route path="contacts" element={<DashboardContacts />} />
+                <Route path="companies" element={<DashboardCompanies />} />
               </Routes>
             </DashboardLayout>
           }

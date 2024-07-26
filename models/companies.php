@@ -48,7 +48,7 @@ class Companies
     
         $params = [
             ':name' => self::securityInput($bodyDatas['name']),
-            ':type_id' => self::securityInput(intval($bodyDatas['type_id'])),
+            ':type' => self::securityInput($bodyDatas['type'].'%'),
             ':country' => self::securityInput($bodyDatas['country']),
             ':tva' => self::securityInput($bodyDatas['tva']),
             ':created_at' => self::dates('Y-m-d H:i:s'), 
@@ -70,7 +70,11 @@ class Companies
             $paramsBody[":{$key}"] = self::securityInput($value);
         }
         foreach ($bodyDatas as $key => $value) {
-            $paramsSet .= "{$key} = :{$key}, ";
+            if ($key == 'type'){
+                $paramsSet .= "{$key}_id = (SELECT id FROM types WHERE name LIKE :{$key}), ";
+            }else{
+                $paramsSet .= "{$key} = :{$key}, ";
+            }
         }
         $paramsSet .= 'updated_at = :updated_at';
 

@@ -49,7 +49,7 @@ VALUES
 
 INSERT INTO `roles` (`name`, `created_at`, `updated_at`)
 VALUES
-    ('Admin', '2018-01-31', '2018-01-31'),
+    ('Administrator', '2018-01-31', '2018-01-31'),
     ('Moderator', '2018-01-31', '2018-01-31');
 
 INSERT INTO `users` (`first_name`, `role_id`, `last_name`, `email`, `password`, `created_at`, `updated_at`)

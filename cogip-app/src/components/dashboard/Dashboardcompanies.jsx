@@ -1,25 +1,33 @@
 import React from 'react';
 
-function DashboardInvoices() {
+function DashboardCompanies() {
   return (
     <div>
-      <p>dashboard/new-invoice</p>
+      <p>dashboard/new-company</p>
       <form className="bg-white p-6 rounded">
-        <h2 className="text-2xl font-bold mb-4 flex items-center justify-center">New invoice</h2>
+        <h2 className="text-2xl font-bold mb-4 flex items-center justify-center">New company</h2>
         <div className="mb-4">
           <input
-            placeholder='Reference'
+            placeholder='Company name'
             type="text"
             required
             className="mt-1 p-2 w-full border border-gray-300 rounded"
           />
         </div>
         <div className="mb-4">
-          <input className="mt-1 p-2 w-full border border-gray-300 rounded" placeholder='Price' type="text" id="price" name="price" />
+          <input
+            placeholder='TVA'
+            type="text"
+            required
+            className="mt-1 p-2 w-full border border-gray-300 rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <input className="mt-1 p-2 w-full border border-gray-300 rounded" placeholder='Country' type="text" id="country" name="country" />
         </div>
         <div className="mb-4">
           <input
-            placeholder='Company name'
+            placeholder='Type'
             type="text"
             required
             className="mt-1 p-2 w-full border border-gray-300 rounded"
@@ -33,4 +41,4 @@ function DashboardInvoices() {
   );
 };
 
-export default DashboardInvoices;
+export default DashboardCompanies;

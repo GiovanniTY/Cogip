@@ -48,7 +48,7 @@ class Invoices
 
         $params = [
             ':ref' => self::securityInput($bodyDatas['reference']),
-            ':company_id' => self::securityInput($bodyDatas['company_id']),
+            ':company' => self::securityInput($bodyDatas['company'].'%'),
             ':due_date' => self::dates("Y-m-d", strtotime(str_replace('/', '-', $bodyDatas['due_date']))),
             ':created_at' => self::dates('Y-m-d h:i:s', null),
             ':updated_at' => self::dates('Y-m-d h:i:s', null)
@@ -75,7 +75,11 @@ class Invoices
         }        
         
         foreach ($bodyDatas as $key => $value) {
-            $paramsSet .= "{$key} = :{$key}, ";
+            if ($key == 'company'){
+                $paramsSet .= "{$key}_id = (SELECT id FROM companies WHERE name LIKE :{$key}), ";
+            }else{
+                $paramsSet .= "{$key} = :{$key}, ";
+            }
         }
         $paramsSet .= 'updated_at = :updated_at';
 
