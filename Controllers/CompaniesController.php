@@ -48,6 +48,20 @@ class CompaniesController {
 
 
     public function createCompany() {
+
+
+           // check the users is logged
+    if (!isset($_SESSION['user'])) {
+        header('HTTP/1.1 401 Unauthorized');
+        echo json_encode(["error" => "User not authenticated"]);
+        exit(); 
+    }
+        //verify the users'role
+        if ($_SESSION['user']['role'] !== 'admin' && $_SESSION['user']['role'] !== 'moderator') {
+            header('HTTP/1.1 403 Forbidden');
+            echo json_encode(["error" => "Access denied"]);
+            exit(); 
+        }
         try {
         // Extract and sanitize data from the request body
         $params = Companies::dataBodyInsert();
@@ -65,8 +79,8 @@ class CompaniesController {
         
     
         $response = [
-            'status' => 202,
-            'message' => 'OK',
+            'status' => 201,
+            'message' => 'Company Created successfully',
             'params' => $params
         ];
 
@@ -75,6 +89,7 @@ class CompaniesController {
         $response = [
             'status' => 500,
             'message' => 'Bad Request',
+            'error' => $th->getMessage()
         ];
 
         echo createJson($response);
@@ -84,6 +99,18 @@ class CompaniesController {
     
     
 public function updateCompany($id) {
+           // check the users is logged
+           if (!isset($_SESSION['user'])) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(["error" => "User not authenticated"]);
+            exit(); 
+        }
+            //verify the users'role
+            if ($_SESSION['user']['role'] !== 'admin') {
+                header('HTTP/1.1 403 Forbidden');
+                echo json_encode(["error" => "Access denied"]);
+                exit(); 
+            }
     try {
         // Extract and sanitize data from request body for update
         $params = Companies::dataBodyUpdate($id);
@@ -125,6 +152,18 @@ public function updateCompany($id) {
 }
 
 public function deleteCompany($id) {
+           // check the users is logged
+           if (!isset($_SESSION['user'])) {
+            header('HTTP/1.1 401 Unauthorized');
+            echo json_encode(["error" => "User not authenticated"]);
+            exit(); 
+        }
+            //verify the users'role
+            if ($_SESSION['user']['role'] !== 'admin') {
+                header('HTTP/1.1 403 Forbidden');
+                echo json_encode(["error" => "Access denied"]);
+                exit(); 
+            }
     try {
         // Start a transaction
         $this->db->beginTransaction();
