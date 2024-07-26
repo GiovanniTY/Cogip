@@ -39,7 +39,7 @@ function Header() {
         <img 
           src={polygon} 
           alt="white polygon figure" 
-          className="w-full md:w-1/2 lg:w-1/3 absolute bottom-0 right-0"
+          className="mr-8"
         />
       </div>
     </header>
