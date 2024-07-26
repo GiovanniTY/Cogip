@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `invoices`(
     `id`            INT UNSIGNED    NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `ref`           VARCHAR(50)     NOT NULL,
     `company_id`    INT UNSIGNED    NOT NULL,
-    `due_date`      DATE        NOT NULL
+    `due_date`      DATE        NOT NULL,
     `created_at`    DATE        NOT NULL,
     `updated_at`    DATE        NOT NULL,
     FOREIGN KEY (`company_id`) REFERENCES `companies`(`id`)
