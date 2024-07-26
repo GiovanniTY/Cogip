@@ -2,7 +2,7 @@ import React from 'react';
 
 function LatestTable({ title, data, columns }) {
   return (
-    <div className="flex flex-col mx-36 relative">
+    <div className="flex flex-col relative">
       <h2 className="font-Inter font-black text-4xl">{title}</h2>
       <table>
         <thead>

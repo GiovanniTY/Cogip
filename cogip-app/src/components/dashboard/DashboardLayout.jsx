@@ -27,10 +27,10 @@ const DashboardLayout = ({ children }) => {
   }, []);
 
   return (
-    <div className="flex h-screen relative">
+    <div className="flex h-screen bg-gray-200">
       <Sidebar isSidebarOpen={isSidebarOpen} closeSidebar={closeSidebar} />
-      <div className="md:px-6 bg-gray-100 flex-1 flex flex-col">
-        <header className="p-4 md:p-6 flex items-center justify-between z-40 relative">
+      <div className="flex-1 flex flex-col overflow-y-auto">
+        <header className="p-4 md:p-6 flex items-center justify-between">
           <button onClick={toggleSidebar} className="text-2xl md:hidden">
             <img className="w-8 h-8 flex flex-col justify-between items-center" src={menu} alt="hamburger-icon" />
           </button>
@@ -47,7 +47,7 @@ const DashboardLayout = ({ children }) => {
             alt="Dashboard"
           />
         </div>
-        <main className="flex-1 p-4 md:p-6 overflow-y-auto">
+        <main className="flex-1 p-4 md:p-6">
           {children}
         </main>
       </div>
