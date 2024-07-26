@@ -62,21 +62,18 @@ class users {
     }
 
 
-    //don't work
     public static function dataRoleUpdate($id){
 
         $bodydata = file_get_contents('php://input');
         $bodyDatas = json_decode($bodydata, true);
  
-        foreach ($bodyDatas as $key => $value) {
-                $paramsBody[":{$key}"] = self::securityInput($value);
-            }
-        $paramsNoBody = [
-            ':updated' => self::dates('Y-m-d H:i:s'),
+        $params = [
+            ':role' => self::securityInput($bodyDatas['role'].'%'),
+            ':updated_at' => self::dates('Y-m-d H:i:s'),
             ':id' => self::securityInput(intval($id))
         ];
 
-        $params = array_merge($paramsBody, $paramsNoBody);
+        // $params = array_merge($paramsBody, $paramsNoBody);
 
         return $params;
 

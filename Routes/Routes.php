@@ -120,7 +120,7 @@ $router->mount('/contacts', function () use ($router) {
 
 });
 
-//INVOICES
+//USERS
 $router->mount('/users', function () use ($router) {
 
     // Route to get all users

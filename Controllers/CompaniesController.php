@@ -162,7 +162,18 @@ public function deleteCompany($id) {
 
 
     public function getCompany($id) {
-        $query = "SELECT * FROM companies WHERE id = :id";
+        $query =    "SELECT companies.id, 
+                            companies.name, 
+                            companies.type_id, 
+                            companies.country, 
+                            companies.tva, 
+                            DATE_FORMAT(companies.created_at, '%d/%m/%Y') as created_at, 
+                            DATE_FORMAT(companies.updated_at, '%d/%m/%Y') as updated_at, 
+                            types.name as type 
+                    FROM companies 
+                        LEFT JOIN types 
+                        ON companies.type_id = types.id 
+                    WHERE companies.id = :id";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
         $stmt->execute();

@@ -21,16 +21,17 @@ class InvoicesController
     {
         try {
             // Query to get all invoices from database
-            $query = "SELECT  invoices.id, 
-                        invoices.ref    AS reference,
-                        invoices.company_id, 
-                        companies.name  AS companyName, 
-                        invoices.due_date, 
-                        DATE_FORMAT(invoices.created_at, '%d/%m/%Y') as created_at, 
-                        DATE_FORMAT(invoices.updated_at, '%d/%m/%Y') as updated_at 
-                FROM invoices LEFT JOIN companies 
-                                ON invoices.company_id = companies.id 
-                ORDER BY invoices.created_at DESC";
+            $query = "SELECT    invoices.id, 
+                                invoices.ref    AS reference,
+                                invoices.company_id, 
+                                companies.name  AS companyName, 
+                                invoices.due_date, 
+                                DATE_FORMAT(invoices.created_at, '%d/%m/%Y') as created_at, 
+                                DATE_FORMAT(invoices.updated_at, '%d/%m/%Y') as updated_at 
+                    FROM invoices 
+                        LEFT JOIN companies 
+                        ON invoices.company_id = companies.id 
+                    ORDER BY invoices.created_at DESC";
 
             $stmt = $this->db->query($query);
 
@@ -109,7 +110,17 @@ class InvoicesController
     }
 
     public function getInvoice($id) {
-        $query = "SELECT * FROM invoices WHERE id = :id";
+        $query ="SELECT invoices.id, 
+                        invoices.ref    AS reference,
+                        invoices.company_id, 
+                        companies.name  AS companyName, 
+                        invoices.due_date, 
+                        DATE_FORMAT(invoices.created_at, '%d/%m/%Y') as created_at, 
+                        DATE_FORMAT(invoices.updated_at, '%d/%m/%Y') as updated_at 
+                    FROM invoices 
+                        LEFT JOIN companies 
+                        ON invoices.company_id = companies.id 
+                    WHERE invoices.id = :id";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
         $stmt->execute();
