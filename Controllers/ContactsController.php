@@ -121,4 +121,30 @@ class ContactsController {
         // Return contact data in json
         echo json_encode($contact->toArray());
     }
+
+    public function getAllCompanyContact($id) {
+        $query =    "SELECT contacts.id, 
+                            contacts.name, 
+                            contacts.company_id, 
+                            contacts.email, 
+                            contacts.phone, 
+                            DATE_FORMAT(contacts.created_at, '%d/%m/%Y') as created_at, 
+                            DATE_FORMAT(contacts.updated_at, '%d/%m/%Y') as updated_at, 
+                            companies.name as company 
+                    FROM contacts 
+                        LEFT JOIN companies 
+                        ON contacts.company_id = companies.id 
+                    WHERE contacts.company_id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+        $stmt->execute();
+        $contactsData = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        error_log('Contacts data retieved: ' . print_r($contactsData, true));
+
+        // $contacts = Contacts::loadData($contactsData);
+        // return datas in json
+        echo json_encode($contactsData);
+        
+    }
 }

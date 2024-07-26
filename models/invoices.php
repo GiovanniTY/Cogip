@@ -105,6 +105,19 @@ class Invoices
         
     }
 
+     // Method to convert object to array for JSON serialization
+     public function toArray(): array {
+        return [
+            'id' => $this->id,
+            'reference' => $this->reference,
+            'company_id' => $this->company_id,
+            'companyName' => $this->companyName,
+            'due_date' => $this->due_date,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+
 
 }
 header("Access-Control-Allow-Origin: http://localhost:5173");

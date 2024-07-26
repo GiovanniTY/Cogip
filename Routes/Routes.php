@@ -57,6 +57,12 @@ $router->mount('/invoices', function () use ($router) {
         return (new InvoicesController($db))->getAllInvoices();
     });
 
+    //Route to view all Invoice of a specific company
+    $router->get('/company/(\d+)', function ($id){
+        $db = new Database();
+        return (new InvoicesController($db))->getAllCompanyInvoices($id);
+    });
+
     // Route to view details of a specific invoice
     $router->get('/view/(\d+)', function ($id) {
         $db = new Database();
@@ -98,6 +104,12 @@ $router->mount('/contacts', function () use ($router) {
     $router->get('/view/(\d+)', function ($id) {
         $db = new Database();
         return (new ContactsController($db))->getContact($id);
+    });
+
+    // Route to view all contacts of a company
+    $router->get('/company/(\d+)', function ($id) {
+        $db = new Database();
+        return (new ContactsController($db))->getAllCompanyContact($id);
     });
 
     // Route to create a new contact
