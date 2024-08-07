@@ -2,9 +2,11 @@
 
 ## Mission
 
-Welcome to the COGIP Web Application repository! Our mission is to develop a web application tailored to meet the needs of Jean-Christian Ranu, an accountant at COGIP. Jean-Christian has been struggling with outdated and incomplete software, and our goal is to provide him with a modern, efficient, and user-friendly solution.
+## Mission
 
-COGIP is known for its production of Jean-Michel toys and boasts a dedicated and talented team. Your task is to build an application that aligns with Jean-Christian's requirements while enhancing his workflow.
+Welcome to the COGIP Web Application repository! We have successfully developed a web application designed specifically to meet the needs of Jean-Christian Ranu, an accountant at COGIP. Our application addresses the challenges Jean-Christian faced with outdated and incomplete software, providing him with a modern, efficient, and user-friendly solution.
+
+COGIP, renowned for its production of Jean-Michel toys, is home to a dedicated and talented team. Our application enhances Jean-Christian's workflow by offering robust features that streamline accounting tasks and improve overall productivity. We are proud to present a solution that aligns with Jean-Christian's requirements and supports his daily operations effectively.
 
 ## Technologies Used
 
