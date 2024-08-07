@@ -29,10 +29,10 @@ function LatestContacts() {
   }, []);
 
   const columns = [
-    { key: 'name', label: 'Name' },
+    { key: 'name', label: 'Name', link: '/contacts' },
     { key: 'phone', label: 'Phone' },
     { key: 'mail', label: 'Mail' },
-    { key: 'company', label: 'Company' },
+    { key: 'company', label: 'Company', link: '/companies' },
     { key: 'createdAt', label: 'Created at' },
   ];
 

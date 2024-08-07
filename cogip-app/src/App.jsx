@@ -1,3 +1,4 @@
+// App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
@@ -12,7 +13,9 @@ import DashboardHome from './components/dashboard/DashboardHome';
 import DashboardInvoices from './components/dashboard/Dashboardinvoices';
 import DashboardContacts from './components/dashboard/Dashboardcontacts';
 import DashboardCompanies from './components/dashboard/Dashboardcompanies';
-import DashboardLayout from './components/dashboard/DashboardLayout'; 
+import DashboardLayout from './components/dashboard/DashboardLayout';
+import ContactDetail from './components/details/ContactDetail';
+
 
 function App() {
   return (
@@ -27,7 +30,9 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/invoices" element={<Invoices />} />
                 <Route path="/companies" element={<Companies />} />
+              
                 <Route path="/contacts" element={<Contacts />} />
+                <Route path="/contacts/:id" element={<ContactDetail />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
               </Routes>

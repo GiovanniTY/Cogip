@@ -20,7 +20,7 @@ function LatestInvoices() {
   const columns = [
     { key: 'reference', label: 'Reference' },
     { key: 'due_date', label: 'Due Date' },
-    { key: 'companyName', label: 'Company Name' },
+    { key: 'companyName', label: 'Company Name', link: '/companies' },
     { key: 'createdAt', label: 'Created at' },
   ];
 

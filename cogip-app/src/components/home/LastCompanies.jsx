@@ -18,7 +18,7 @@ function LatestCompanies() {
   }, []);
 
   const columns = [
-    { key: 'name', label: 'Name' },
+    { key: 'name', label: 'Name', link: '/companies' },
     { key: 'tva', label: 'TVA' },
     { key: 'country', label: 'Country' },
     { key: 'typeName', label: 'Type' },

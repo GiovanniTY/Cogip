@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import Search from "../components/Search";
 import Pagination from '../components/Pagination';
 import { fetchContacts, fetchCompanies } from '../services/Api';
@@ -14,13 +15,11 @@ function Contacts() {
       try {
         const [contactsData, companiesData] = await Promise.all([fetchContacts(), fetchCompanies()]);
         
-        // Create a map of company ID to company name
         const companiesMap = companiesData.reduce((map, company) => {
           map[company.id] = company.name;
           return map;
         }, {});
 
-        // Map company IDs to company names in contacts
         const contactsWithCompanyNames = contactsData.map(contact => ({
           ...contact,
           company: companiesMap[contact.company] || 'Unknown'
@@ -43,7 +42,7 @@ function Contacts() {
         contact.company.toLowerCase().includes(query.toLowerCase())
     );
     setSearchResults(results);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const handlePageChange = (page) => {
@@ -66,6 +65,7 @@ function Contacts() {
             <th>Mail</th>
             <th>Company</th>
             <th>Created at</th>
+            <th>Details</th> {/* Add a new column for the link */}
           </tr>
         </thead>
         <tbody>
@@ -76,6 +76,9 @@ function Contacts() {
               <td>{contact.mail}</td>
               <td>{contact.company}</td>
               <td>{contact.createdAt}</td>
+              <td>
+                <Link to={`/contacts/${contact.id}`}>View Details</Link>
+              </td>
             </tr>
           ))}
         </tbody>
