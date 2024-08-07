@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # COGIP Web Application
 
 ## Mission
@@ -65,7 +64,7 @@ COGIP is known for its production of Jean-Michel toys and boasts a dedicated and
 
 - **SQL Structure**: An SQL file containing the database schema is included in this repository. It provides the structure needed to support the application.
 - ![Database Schema Screenshot](<cogip-app/src/assets/screenshot/Capture d’écran 2024-08-07 à 11.16.48.png>)
-=======
+
 # COGIP Web Application
 
 ## Mission
@@ -132,4 +131,3 @@ COGIP is known for its production of Jean-Michel toys and boasts a dedicated and
 
 - **SQL Structure**: An SQL file containing the database schema is included in this repository. It provides the structure needed to support the application.
 - ![Database Schema Screenshot](<cogip-app/src/assets/screenshot/Capture d’écran 2024-08-07 à 11.16.48.png>)
->>>>>>> 66d706ab2e9d5eb99542c048b085a95571a543ad
